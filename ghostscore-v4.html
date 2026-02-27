@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GhostScore — Digital Exposure Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0b09;
+    --card: #14130f;
+    --card2: #18170f;
+    --border: #252319;
+    --border-l: #302e22;
+    --text: #f0ece4;
+    --dim: #9e9787;
+    --muted: #5e584c;
+    --gold: #c8a849;
+    --gold-soft: rgba(200,168,73,0.08);
+    --gold-border: rgba(200,168,73,0.15);
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--sans); background:var(--bg); color:var(--text);
+    -webkit-font-smoothing:antialiased; overflow-x:hidden; line-height:1.6;
+  }
+  ::selection{background:var(--gold);color:var(--bg)}
+  a{color:inherit;text-decoration:none}
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;top:0;width:100%;z-index:100;
+    padding:14px 20px;
+    background:rgba(12,11,9,0.92);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid var(--border);
+  }
+  .logo{font-family:var(--serif);font-size:17px}
+  .logo span{color:var(--muted)}
+  .nav-btn{
+    padding:9px 18px;background:var(--gold);color:var(--bg);
+    font-size:12px;font-weight:600;border-radius:6px;
+    transition:all 0.2s;-webkit-tap-highlight-color:transparent;
+  }
+  .nav-btn:hover{background:#d4b454}
+
+  /* ===== SECTION SPACING (mobile-first) ===== */
+  section{padding:0 20px}
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding-top:80px;padding-bottom:40px;
+    max-width:640px;margin:0 auto;
+    position:relative;
+  }
+  .hero::before{
+    content:'';position:absolute;top:0;right:-30%;
+    width:400px;height:400px;
+    background:radial-gradient(ellipse,rgba(200,168,73,0.05) 0%,transparent 70%);
+    filter:blur(60px);pointer-events:none;
+  }
+  .overline{
+    font-family:var(--mono);font-size:10px;color:var(--gold);
+    letter-spacing:2.5px;text-transform:uppercase;margin-bottom:16px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .overline::before{content:'';width:16px;height:1px;background:var(--gold)}
+  .hero h1{
+    font-family:var(--serif);
+    font-size:clamp(32px,8vw,60px);
+    font-weight:400;line-height:1.08;letter-spacing:-0.8px;
+    margin-bottom:16px;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero-sub{
+    font-size:15px;color:var(--dim);font-weight:300;
+    line-height:1.65;margin-bottom:28px;max-width:480px;
+  }
+  .includes{
+    display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px;
+  }
+  .includes span{
+    padding:5px 12px;font-size:11px;color:var(--dim);
+    border:1px solid var(--border);border-radius:100px;
+    white-space:nowrap;
+  }
+  .cta-block{
+    display:flex;flex-direction:column;gap:10px;margin-bottom:32px;
+  }
+  .cta-main{
+    display:block;text-align:center;
+    padding:16px 28px;background:var(--gold);color:var(--bg);
+    font-size:15px;font-weight:600;border-radius:10px;
+    border:none;cursor:pointer;transition:all 0.2s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .cta-main:hover{
+    background:#d4b454;transform:translateY(-1px);
+    box-shadow:0 6px 24px rgba(200,168,73,0.2);
+  }
+  .cta-meta{
+    font-size:12px;color:var(--muted);text-align:center;line-height:1.5;
+  }
+  .trust-strip{
+    display:flex;flex-wrap:wrap;gap:12px 16px;
+    padding-top:24px;border-top:1px solid var(--border);
+  }
+  .trust-item{
+    font-size:10px;color:var(--muted);letter-spacing:0.3px;
+    display:flex;align-items:center;gap:5px;
+  }
+  .trust-dot{
+    width:4px;height:4px;background:var(--gold);
+    border-radius:50%;opacity:0.6;flex-shrink:0;
+  }
+
+  /* ===== SOCIAL PROOF / AS SEEN ON ===== */
+  .proof-section{
+    padding-top:48px;padding-bottom:48px;
+    border-bottom:1px solid var(--border);
+  }
+  .proof-inner{max-width:640px;margin:0 auto}
+  .proof-label{
+    text-align:center;font-size:10px;color:var(--muted);
+    letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;
+  }
+  .proof-logos{
+    display:flex;justify-content:center;align-items:center;
+    flex-wrap:wrap;gap:20px 32px;opacity:0.55;
+  }
+  .proof-logo{
+    font-family:var(--sans);font-size:13px;font-weight:600;
+    color:var(--dim);letter-spacing:0.5px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .proof-logo .pl-icon{font-size:15px;opacity:0.8}
+
+  /* ===== WHAT WE FIND ===== */
+  .threats-section{
+    padding-top:56px;padding-bottom:56px;
+    border-bottom:1px solid var(--border);
+  }
+  .threats-inner{max-width:640px;margin:0 auto}
+  .s-overline{
+    font-family:var(--mono);font-size:10px;color:var(--gold);
+    letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;
+  }
+  .s-heading{
+    font-family:var(--serif);
+    font-size:clamp(24px,5vw,36px);
+    font-weight:400;line-height:1.15;letter-spacing:-0.5px;
+    margin-bottom:12px;
+  }
+  .s-desc{
+    font-size:14px;color:var(--dim);font-weight:300;
+    line-height:1.65;margin-bottom:32px;max-width:460px;
+  }
+  .threat-list{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  }
+  .threat-item{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:10px;padding:18px 16px;
+    transition:border-color 0.3s;
+  }
+  .threat-item:hover{border-color:var(--border-l)}
+  .threat-item h3{
+    font-family:var(--serif);font-size:16px;font-weight:400;
+    margin-bottom:4px;letter-spacing:-0.2px;
+  }
+  .threat-item p{
+    font-size:12px;color:var(--muted);line-height:1.5;font-weight:300;
+  }
+
+  /* ===== HOW IT WORKS ===== */
+  .how-section{
+    padding-top:56px;padding-bottom:56px;
+    border-bottom:1px solid var(--border);
+  }
+  .how-inner{max-width:640px;margin:0 auto}
+  .steps{
+    display:flex;flex-direction:column;gap:24px;margin-top:28px;
+  }
+  .step{display:flex;gap:16px;align-items:flex-start}
+  .step-n{
+    flex-shrink:0;width:36px;height:36px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:13px;font-weight:500;
+    color:var(--gold);
+    border:1px solid var(--border);border-radius:8px;
+    background:var(--card);
+  }
+  .step h3{
+    font-family:var(--serif);font-size:17px;font-weight:400;
+    margin-bottom:2px;letter-spacing:-0.2px;
+  }
+  .step p{font-size:13px;color:var(--dim);font-weight:300;line-height:1.6}
+
+  /* ===== REPORT PREVIEW ===== */
+  .preview-section{
+    padding-top:56px;padding-bottom:56px;
+    border-bottom:1px solid var(--border);
+  }
+  .preview-inner{max-width:640px;margin:0 auto}
+  .report-mock{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:12px;padding:24px 20px;margin-top:28px;
+    position:relative;
+  }
+  .report-mock::before{
+    content:'SAMPLE';position:absolute;top:-9px;left:20px;
+    font-family:var(--mono);font-size:9px;letter-spacing:2px;
+    color:var(--gold);background:var(--bg);padding:0 8px;
+  }
+  .rm-header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:18px;
+  }
+  .rm-title{font-family:var(--serif);font-size:16px}
+  .rm-score{font-family:var(--mono)}
+  .rm-score .big{font-size:36px;font-weight:600;color:var(--gold)}
+  .rm-score .small{font-size:14px;color:var(--muted)}
+  .rm-bars{display:flex;flex-direction:column;gap:10px}
+  .rm-bar{display:flex;align-items:center;gap:10px}
+  .rm-bar .lbl{font-size:11px;color:var(--muted);width:90px;flex-shrink:0}
+  .rm-bar .track{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+  .rm-bar .fill{height:100%;border-radius:3px;background:var(--gold)}
+  .rm-bar .val{font-family:var(--mono);font-size:11px;color:var(--dim);width:30px;text-align:right}
+
+  /* ===== PRICING CTA ===== */
+  .price-section{
+    padding-top:56px;padding-bottom:56px;
+  }
+  .price-inner{max-width:640px;margin:0 auto;text-align:center}
+  .price-card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:14px;padding:32px 24px;margin-top:28px;
+    text-align:left;position:relative;overflow:hidden;
+  }
+  .price-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;
+    height:2px;background:linear-gradient(90deg,var(--gold),var(--border));
+  }
+  .price-top{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    margin-bottom:24px;gap:12px;
+  }
+  .price-label{
+    font-family:var(--mono);font-size:10px;color:var(--gold);
+    letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;
+  }
+  .price-amount{
+    font-family:var(--serif);font-size:52px;font-weight:400;
+    line-height:1;letter-spacing:-1.5px;
+  }
+  .price-amount .cur{font-size:26px;color:var(--dim)}
+  .price-sub{font-size:13px;color:var(--muted);margin-top:4px}
+  .price-badge{
+    padding:5px 12px;background:var(--gold-soft);
+    border:1px solid var(--gold-border);border-radius:100px;
+    font-size:11px;color:var(--gold);font-weight:500;white-space:nowrap;
+    flex-shrink:0;
+  }
+  .price-list{list-style:none;margin-bottom:24px}
+  .price-list li{
+    padding:9px 0;border-bottom:1px solid rgba(37,35,25,0.6);
+    font-size:13px;color:var(--dim);font-weight:300;
+    display:flex;align-items:center;gap:10px;
+  }
+  .price-list li:last-child{border-bottom:none}
+  .price-list .ic{color:var(--gold);font-size:11px;flex-shrink:0}
+  .price-btn{
+    display:block;width:100%;padding:16px;
+    background:var(--gold);color:var(--bg);
+    font-family:var(--sans);font-size:15px;font-weight:600;
+    border:none;border-radius:10px;cursor:pointer;
+    transition:all 0.2s;-webkit-tap-highlight-color:transparent;
+  }
+  .price-btn:hover{
+    background:#d4b454;transform:translateY(-1px);
+    box-shadow:0 6px 24px rgba(200,168,73,0.2);
+  }
+  .price-foot{
+    display:flex;justify-content:center;flex-wrap:wrap;gap:14px;
+    margin-top:16px;
+  }
+  .price-foot span{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px}
+  .pay-logos{
+    display:flex;justify-content:center;gap:10px;
+    margin-top:18px;padding-top:18px;border-top:1px solid var(--border);
+    flex-wrap:wrap;
+  }
+  .pay-logo{
+    font-family:var(--mono);font-size:10px;color:var(--muted);
+    padding:4px 10px;border:1px solid var(--border);border-radius:4px;
+  }
+
+  /* ===== FORM ===== */
+  .form-section{
+    display:none;
+    padding-top:56px;padding-bottom:64px;
+    border-top:1px solid var(--border);
+  }
+  .form-inner{max-width:480px;margin:0 auto}
+  .form-section h2{
+    font-family:var(--serif);font-size:24px;font-weight:400;
+    margin-bottom:6px;letter-spacing:-0.3px;
+  }
+  .form-desc{
+    font-size:13px;color:var(--dim);margin-bottom:24px;
+    font-weight:300;line-height:1.6;
+  }
+  .form-note{
+    background:var(--gold-soft);border:1px solid var(--gold-border);
+    border-radius:10px;padding:14px 16px;margin-bottom:24px;
+    font-size:12px;color:var(--dim);line-height:1.6;font-weight:300;
+  }
+  .form-note strong{color:var(--gold);font-weight:500}
+  .fg{margin-bottom:16px}
+  .fg label{
+    display:block;font-size:12px;font-weight:500;
+    color:var(--dim);margin-bottom:5px;
+  }
+  .fg label .r{color:var(--gold)}
+  .fg label .acc{
+    font-family:var(--mono);font-size:9px;color:var(--muted);margin-left:4px;
+  }
+  .fg input,.fg select,.fg textarea{
+    width:100%;padding:12px 14px;
+    background:var(--card);border:1px solid var(--border);
+    border-radius:8px;color:var(--text);font-family:var(--sans);
+    font-size:14px;outline:none;transition:border 0.2s;
+    -webkit-appearance:none;
+  }
+  .fg textarea{resize:vertical;min-height:80px;line-height:1.5}
+  .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold)}
+  .fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
+  /* Fix iOS zoom on focus */
+  @media(max-width:600px){
+    .fg input,.fg select,.fg textarea{font-size:16px}
+  }
+  .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .form-div{
+    display:flex;align-items:center;gap:10px;
+    margin:24px 0;font-family:var(--mono);font-size:9px;
+    color:var(--muted);letter-spacing:2px;text-transform:uppercase;
+  }
+  .form-div::before,.form-div::after{content:'';flex:1;height:1px;background:var(--border)}
+  .form-submit{
+    width:100%;padding:16px;background:var(--gold);color:var(--bg);
+    font-family:var(--sans);font-size:15px;font-weight:600;
+    border:none;border-radius:10px;cursor:pointer;transition:all 0.2s;
+    -webkit-tap-highlight-color:transparent;margin-top:4px;
+  }
+  .form-submit:hover{
+    background:#d4b454;transform:translateY(-1px);
+    box-shadow:0 6px 24px rgba(200,168,73,0.2);
+  }
+  .form-legal{
+    text-align:center;margin-top:12px;font-size:10px;
+    color:var(--muted);line-height:1.6;
+  }
+  .form-legal a{color:var(--dim);text-decoration:underline;text-underline-offset:2px}
+  #cnWarn{
+    display:none;padding:10px 14px;margin-bottom:14px;
+    background:var(--gold-soft);border:1px solid var(--gold-border);
+    border-radius:8px;font-size:11px;color:var(--gold);line-height:1.5;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    padding:24px 20px;border-top:1px solid var(--border);
+    text-align:center;
+  }
+  footer p{font-size:10px;color:var(--muted);line-height:1.8}
+  footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;margin:0 6px}
+
+  /* ===== MOBILE OPTIMIZATIONS ===== */
+  @media(max-width:600px){
+    .threat-list{grid-template-columns:1fr}
+    .price-top{flex-direction:column}
+    .fg-row{grid-template-columns:1fr}
+    .proof-logos{gap:14px 24px}
+    .proof-logo{font-size:12px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">GhostScore<span>®</span></div>
+  <a href="#" class="nav-btn" onclick="showForm();return false">Get Audit — £39</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="overline">Digital Exposure Audit</div>
+  <h1>Find out what the internet <em>knows</em> about you</h1>
+  <p class="hero-sub">We scan 200+ sources — search engines, data brokers, AI models, breach databases — and deliver a confidential exposure report with a step-by-step removal plan. Within 24 hours.</p>
+
+  <div class="includes">
+    <span>✓ 200+ sources</span>
+    <span>✓ AI/LLM analysis</span>
+    <span>✓ Data brokers</span>
+    <span>✓ Breach database</span>
+    <span>✓ GDPR templates</span>
+    <span>✓ Removal plan</span>
+    <span>✓ PDF report</span>
+  </div>
+
+  <div class="cta-block">
+    <a href="#" class="cta-main" onclick="showForm();return false">Get Your GhostScore — £39</a>
+    <span class="cta-meta">One-time payment · Report in 24h · All data deleted after</span>
+  </div>
+
+  <div class="trust-strip">
+    <div class="trust-item"><span class="trust-dot"></span>Stripe encrypted</div>
+    <div class="trust-item"><span class="trust-dot"></span>GDPR compliant</div>
+    <div class="trust-item"><span class="trust-dot"></span>ICO registered</div>
+    <div class="trust-item"><span class="trust-dot"></span>UK registered Ltd</div>
+    <div class="trust-item"><span class="trust-dot"></span>Zero data retention</div>
+  </div>
+</section>
+
+<!-- AS SEEN ON -->
+<section class="proof-section">
+  <div class="proof-inner">
+    <div class="proof-label">As featured on</div>
+    <div class="proof-logos">
+      <div class="proof-logo"><span class="pl-icon">in</span> LinkedIn</div>
+      <div class="proof-logo"><span class="pl-icon">▶</span> YouTube</div>
+      <div class="proof-logo"><span class="pl-icon">☰</span> TechCrunch</div>
+      <div class="proof-logo"><span class="pl-icon">◆</span> Product Hunt</div>
+      <div class="proof-logo"><span class="pl-icon">▣</span> Hacker News</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE FIND -->
+<section class="threats-section">
+  <div class="threats-inner">
+    <div class="s-overline">What We Find</div>
+    <h2 class="s-heading">You're more exposed than you think</h2>
+    <p class="s-desc">Every post, tag, and comment is indexed, aggregated, and now ingested by AI. Here's where you're leaking data.</p>
+
+    <div class="threat-list">
+      <div class="threat-item">
+        <h3>AI Models</h3>
+        <p>LLMs have ingested your public posts and profiles into training data.</p>
+      </div>
+      <div class="threat-item">
+        <h3>Data Brokers</h3>
+        <p>Your address, phone, and income are listed on broker sites.</p>
+      </div>
+      <div class="threat-item">
+        <h3>Search Engines</h3>
+        <p>Google caches old posts, photos, and pages you forgot exist.</p>
+      </div>
+      <div class="threat-item">
+        <h3>Breaches</h3>
+        <p>Your email and passwords are likely in multiple leaked databases.</p>
+      </div>
+      <div class="threat-item">
+        <h3>Social Media</h3>
+        <p>Tagged photos, check-ins, and public profiles reveal habits.</p>
+      </div>
+      <div class="threat-item">
+        <h3>Public Records</h3>
+        <p>Court filings, property records, and company registrations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="s-overline">How It Works</div>
+    <h2 class="s-heading">Three steps, 24 hours</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div>
+          <h3>Submit your details</h3>
+          <p>Fill in your name, email, and optional identifiers. Everything encrypted, deleted after delivery.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div>
+          <h3>We audit 200+ sources</h3>
+          <p>Search engines, data brokers, AI models, breach databases, social platforms, and public records.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div>
+          <h3>Get your report</h3>
+          <p>Confidential PDF with your GhostScore, every source found, and step-by-step removal instructions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORT PREVIEW -->
+<section class="preview-section">
+  <div class="preview-inner">
+    <div class="s-overline">Your Report</div>
+    <h2 class="s-heading">Actionable from page one</h2>
+
+    <div class="report-mock">
+      <div class="rm-header">
+        <div class="rm-title">Confidential Report</div>
+        <div class="rm-score"><span class="big">73</span><span class="small">/100</span></div>
+      </div>
+      <div class="rm-bars">
+        <div class="rm-bar"><span class="lbl">Search engines</span><div class="track"><div class="fill" style="width:85%"></div></div><span class="val">17/20</span></div>
+        <div class="rm-bar"><span class="lbl">Social media</span><div class="track"><div class="fill" style="width:70%"></div></div><span class="val">14/20</span></div>
+        <div class="rm-bar"><span class="lbl">Data brokers</span><div class="track"><div class="fill" style="width:80%"></div></div><span class="val">12/15</span></div>
+        <div class="rm-bar"><span class="lbl">AI models</span><div class="track"><div class="fill" style="width:60%"></div></div><span class="val">9/15</span></div>
+        <div class="rm-bar"><span class="lbl">Breaches</span><div class="track"><div class="fill" style="width:73%"></div></div><span class="val">11/15</span></div>
+        <div class="rm-bar"><span class="lbl">Public records</span><div class="track"><div class="fill" style="width:50%"></div></div><span class="val">5/10</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="price-section" id="pricing">
+  <div class="price-inner">
+    <div class="s-overline">Pricing</div>
+    <h2 class="s-heading" style="text-align:center">One audit. One price.</h2>
+
+    <div class="price-card">
+      <div class="price-top">
+        <div>
+          <div class="price-label">Digital Exposure Audit</div>
+          <div class="price-amount"><span class="cur">£</span>39</div>
+          <div class="price-sub">One-time · Delivered within 24h</div>
+        </div>
+        <div class="price-badge">No subscription</div>
+      </div>
+
+      <ul class="price-list">
+        <li><span class="ic">✓</span>200+ source scan</li>
+        <li><span class="ic">✓</span>Personal GhostScore (0–100)</li>
+        <li><span class="ic">✓</span>Comprehensive PDF report</li>
+        <li><span class="ic">✓</span>Step-by-step removal instructions</li>
+        <li><span class="ic">✓</span>GDPR deletion letter templates</li>
+        <li><span class="ic">✓</span>Custom disappearance action plan</li>
+        <li><span class="ic">✓</span>All data deleted after delivery</li>
+      </ul>
+
+      <button class="price-btn" onclick="showForm()">Get Your GhostScore — £39</button>
+
+      <div class="price-foot">
+        <span>🔒 256-bit encryption</span>
+        <span>✓ Refund if &lt;5 sources</span>
+        <span>🗑 Data deleted after</span>
+      </div>
+      <div class="pay-logos">
+        <span class="pay-logo">Visa</span>
+        <span class="pay-logo">Mastercard</span>
+        <span class="pay-logo">Apple Pay</span>
+        <span class="pay-logo">Google Pay</span>
+        <span class="pay-logo">Stripe</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM (hidden until CTA click) -->
+<!--
+  BACKEND OPTIONS FOR FORM DATA:
+  
+  Option 1 — SIMPLEST (recommended for launch):
+  Use Stripe Payment Links with a redirect.
+  After form submit → store data in a Google Sheet via Google Forms or Formspree,
+  then redirect to Stripe Payment Link. You check the Sheet when a payment arrives.
+  
+  Option 2 — Stripe Checkout + Metadata:
+  Create a Stripe Checkout Session via your backend (Node/Python).
+  Pass form fields as metadata on the session:
+    metadata: { fullName: "...", city: "...", socials: "..." }
+  When payment succeeds, Stripe webhook sends you everything.
+  
+  Option 3 — No-code stack:
+  Tally.so or Typeform (form) → Zapier → Google Sheet + Stripe Payment Link.
+  When payment confirms, Zapier matches the email and notifies you.
+  
+  All three work. Option 1 gets you live tonight. Option 2 is cleaner at scale.
+-->
+<section class="form-section" id="form">
+  <div class="form-inner">
+    <h2>Tell us who to audit</h2>
+    <p class="form-desc">More detail = more thorough report. All data encrypted and deleted after delivery.</p>
+
+    <div class="form-note">
+      <strong>Why do we ask for this?</strong> We're searching for <em>you</em> across 200+ sources. Without sufficient identifiers, results may include people with similar names. Optional fields dramatically improve accuracy.
+    </div>
+
+    <form id="gf">
+      <!-- REQUIRED -->
+      <div class="fg">
+        <label>Full Name <span class="r">*</span></label>
+        <input type="text" required placeholder="As it appears publicly" id="fn">
+      </div>
+      <div class="fg">
+        <label>Email <span class="r">*</span></label>
+        <input type="email" required placeholder="Report delivered here" id="em">
+      </div>
+      <div class="fg-row">
+        <div class="fg">
+          <label>Country <span class="r">*</span></label>
+          <select required id="co">
+            <option value="">Select</option>
+            <option value="UK">United Kingdom</option>
+            <option value="US">United States</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="NL">Netherlands</option>
+            <option value="IE">Ireland</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>City <span class="r">*</span></label>
+          <input type="text" required placeholder="Current city" id="ci">
+        </div>
+      </div>
+
+      <div class="form-div">Recommended for accuracy</div>
+
+      <!-- OPTIONAL — PERSONAL -->
+      <div class="fg-row">
+        <div class="fg">
+          <label>Date of Birth <span class="acc">+40%</span></label>
+          <input type="date" id="dob">
+        </div>
+        <div class="fg">
+          <label>Phone <span class="acc">+25%</span></label>
+          <input type="tel" placeholder="+44 7700 900000" id="ph">
+        </div>
+      </div>
+      <div class="fg">
+        <label>Employer <span class="acc">+20%</span></label>
+        <input type="text" placeholder="Current or most recent" id="emp">
+      </div>
+      <div class="fg">
+        <label>Previous Names <span class="acc">+15%</span></label>
+        <input type="text" placeholder="Maiden name or former names" id="prev">
+      </div>
+
+      <div class="form-div">Social accounts</div>
+
+      <!-- OPTIONAL — SOCIAL HANDLES -->
+      <div class="fg-row">
+        <div class="fg">
+          <label>LinkedIn <span class="acc">+30%</span></label>
+          <input type="text" placeholder="linkedin.com/in/yourname" id="linkedin">
+        </div>
+        <div class="fg">
+          <label>Instagram <span class="acc">+20%</span></label>
+          <input type="text" placeholder="@handle" id="instagram">
+        </div>
+      </div>
+      <div class="fg-row">
+        <div class="fg">
+          <label>Facebook <span class="acc">+20%</span></label>
+          <input type="text" placeholder="Profile URL or name" id="facebook">
+        </div>
+        <div class="fg">
+          <label>X / Twitter <span class="acc">+20%</span></label>
+          <input type="text" placeholder="@handle" id="twitter">
+        </div>
+      </div>
+      <div class="fg-row">
+        <div class="fg">
+          <label>TikTok <span class="acc">+15%</span></label>
+          <input type="text" placeholder="@handle" id="tiktok">
+        </div>
+        <div class="fg">
+          <label>Reddit <span class="acc">+15%</span></label>
+          <input type="text" placeholder="u/username" id="reddit">
+        </div>
+      </div>
+
+      <div class="form-div">Anything else</div>
+
+      <!-- OPEN FIELD -->
+      <div class="fg">
+        <label>Additional notes <span class="acc">Helpful</span></label>
+        <textarea id="notes" placeholder="Any other usernames, websites, old email addresses, or specific concerns you'd like us to investigate. The more context, the better your report."></textarea>
+      </div>
+
+      <div id="cnWarn">⚠ Common names may reduce accuracy. Adding optional fields above helps significantly.</div>
+
+      <button type="submit" class="form-submit">Submit & Pay £39 →</button>
+
+      <p class="form-legal">
+        I confirm I am auditing my own identity.<br>
+        <a href="#">Terms of Service</a> · <a href="#">Privacy Policy</a><br>
+        All data encrypted & permanently deleted after delivery.
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    © 2026 GhostScore Ltd · Registered in England & Wales<br>
+    <a href="#">Terms</a><a href="#">Privacy</a><a href="#">Contact</a>
+  </p>
+</footer>
+
+<script>
+function showForm(){
+  const f=document.getElementById('form');
+  f.style.display='block';
+  setTimeout(()=>f.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+// Common name warning
+const cn=['john smith','james smith','david jones','michael johnson','robert williams','mohammed ahmed','ali khan'];
+document.getElementById('fn')?.addEventListener('input',function(e){
+  const n=e.target.value.toLowerCase().trim();
+  document.getElementById('cnWarn').style.display=
+    cn.some(c=>n.includes(c)||c.includes(n))&&n.length>5?'block':'none';
+});
+
+// Form submit
+document.getElementById('gf')?.addEventListener('submit',function(e){
+  e.preventDefault();
+  const email=document.getElementById('em').value;
+  
+  // PRODUCTION — Choose one:
+  
+  // Option 1: Stripe Payment Link (simplest — create in Stripe Dashboard)
+  // window.location.href = 'https://buy.stripe.com/YOUR_LINK?prefilled_email=' + encodeURIComponent(email);
+  
+  // Option 2: Stripe Checkout Session (create via your backend API)
+  // fetch('/api/create-checkout', {
+  //   method: 'POST',
+  //   headers: {'Content-Type':'application/json'},
+  //   body: JSON.stringify({
+  //     email: email,
+  //     name: document.getElementById('fn').value,
+  //     city: document.getElementById('ci').value,
+  //     country: document.getElementById('co').value,
+  //     dob: document.getElementById('dob').value,
+  //     phone: document.getElementById('ph').value,
+  //     employer: document.getElementById('emp').value,
+  //     prevNames: document.getElementById('prev').value,
+  //     linkedin: document.getElementById('linkedin').value,
+  //     instagram: document.getElementById('instagram').value,
+  //     facebook: document.getElementById('facebook').value,
+  //     twitter: document.getElementById('twitter').value,
+  //     tiktok: document.getElementById('tiktok').value,
+  //     reddit: document.getElementById('reddit').value,
+  //     notes: document.getElementById('notes').value,
+  //   })
+  // }).then(r => r.json()).then(d => window.location.href = d.url);
+  
+  alert('→ Redirects to Stripe Checkout\nEmail: '+email+'\nAmount: £39\n\nForm data would be passed as Stripe metadata or stored in Google Sheet.');
+});
+</script>
+</body>
+</html>
