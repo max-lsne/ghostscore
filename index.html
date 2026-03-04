@@ -740,40 +740,94 @@ document.getElementById('fn')?.addEventListener('input',function(e){
     cn.some(c=>n.includes(c)||c.includes(n))&&n.length>5?'block':'none';
 });
 
-// Form submit
-document.getElementById('gf')?.addEventListener('submit',function(e){
+// FORM SUBMIT → Google Form + Stripe redirect
+document.getElementById('gf')?.addEventListener('submit', function(e){
   e.preventDefault();
-  const email=document.getElementById('em').value;
-  
-  // PRODUCTION — Choose one:
-  
-  // Option 1: Stripe Payment Link (simplest — create in Stripe Dashboard)
-  // window.location.href = 'https://buy.stripe.com/YOUR_LINK?prefilled_email=' + encodeURIComponent(email);
-  
-  // Option 2: Stripe Checkout Session (create via your backend API)
-  // fetch('/api/create-checkout', {
-  //   method: 'POST',
-  //   headers: {'Content-Type':'application/json'},
-  //   body: JSON.stringify({
-  //     email: email,
-  //     name: document.getElementById('fn').value,
-  //     city: document.getElementById('ci').value,
-  //     country: document.getElementById('co').value,
-  //     dob: document.getElementById('dob').value,
-  //     phone: document.getElementById('ph').value,
-  //     employer: document.getElementById('emp').value,
-  //     prevNames: document.getElementById('prev').value,
-  //     linkedin: document.getElementById('linkedin').value,
-  //     instagram: document.getElementById('instagram').value,
-  //     facebook: document.getElementById('facebook').value,
-  //     twitter: document.getElementById('twitter').value,
-  //     tiktok: document.getElementById('tiktok').value,
-  //     reddit: document.getElementById('reddit').value,
-  //     notes: document.getElementById('notes').value,
-  //   })
-  // }).then(r => r.json()).then(d => window.location.href = d.url);
-  
-  alert('→ Redirects to Stripe Checkout\nEmail: '+email+'\nAmount: £39\n\nForm data would be passed as Stripe metadata or stored in Google Sheet.');
+
+  // ============================================
+  // REPLACE THESE WITH YOUR ACTUAL VALUES
+  // ============================================
+  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc9R_Nko0ViuRYUP2dKtSs_VaaWV8fZaMCoYj84xRCpZu_kKQ/formResponse';
+  const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/00w28s5Fv0qP4kR8l5g7e00';
+
+  // Google Form entry IDs — get these from the pre-filled link
+  // (Step 3b in the deployment guide)
+  const ENTRY_IDS = {
+    fullName:  'entry.1887475163',
+    email:     'entry.940650320',
+    country:   'entry.77926392',
+    city:      'entry.336209181',
+    dob:       'entry.1787684943',
+    phone:     'entry.1344841166',
+    employer:  'entry.2097580464',
+    prevNames: 'entry.2087741267',
+    linkedin:  'entry.151008257',
+    instagram: 'entry.1653181095',
+    facebook:  'entry.1763774207',
+    twitter:   'entry.2139898639',
+    tiktok:    'entry.1288114119',
+    reddit:    'entry.1925528909',
+    notes:     'entry.1574667641',
+  };
+  // ============================================
+
+  // Collect form values
+  const data = {
+    fullName:  document.getElementById('fn').value,
+    email:     document.getElementById('em').value,
+    country:   document.getElementById('co').value,
+    city:      document.getElementById('ci').value,
+    dob:       document.getElementById('dob').value,
+    phone:     document.getElementById('ph').value,
+    employer:  document.getElementById('emp').value,
+    prevNames: document.getElementById('prev').value,
+    linkedin:  document.getElementById('linkedin').value,
+    instagram: document.getElementById('instagram').value,
+    facebook:  document.getElementById('facebook').value,
+    twitter:   document.getElementById('twitter').value,
+    tiktok:    document.getElementById('tiktok').value,
+    reddit:    document.getElementById('reddit').value,
+    notes:     document.getElementById('notes').value,
+  };
+
+  // Build Google Form submission URL
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(data)) {
+    if (value && ENTRY_IDS[key]) {
+      params.append(ENTRY_IDS[key], value);
+    }
+  }
+
+  // Send to Google Form silently (no redirect, no popup)
+  // Using an iframe so it doesn't navigate away from the page
+  const iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  iframe.name = 'hidden_iframe';
+  document.body.appendChild(iframe);
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = GOOGLE_FORM_URL;
+  form.target = 'hidden_iframe';
+
+  for (const [entryId, value] of params.entries()) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = entryId;
+    input.value = value;
+    form.appendChild(input);
+  }
+
+  document.body.appendChild(form);
+  form.submit();
+
+  // After a short delay (to ensure form is sent), redirect to Stripe
+  setTimeout(() => {
+    // Append email to Stripe link for prefill
+    const stripeUrl = STRIPE_PAYMENT_LINK
+      + '?prefilled_email=' + encodeURIComponent(data.email);
+    window.location.href = stripeUrl;
+  }, 500);
 });
 </script>
 </body>
