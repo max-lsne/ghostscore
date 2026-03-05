@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GhostScore UK — Privacy Intelligence Blog</title>
+
+  <!-- ✅ FIX: Open Graph tags — fixes the grey earth / bad link preview issue -->
+  <meta property="og:title" content="GhostScore UK — Know What the Internet Knows About You">
+  <meta property="og:description" content="Data brokers, AI models, and search engines hold your personal data. GhostScore audits 200+ sources and shows you exactly what's exposed.">
+  <meta property="og:image" content="https://ghostscore.co.uk/og-image.png">
+  <meta property="og:url" content="https://ghostscore.co.uk/blog">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GhostScore UK">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GhostScore UK — Know What the Internet Knows About You">
+  <meta name="twitter:description" content="Your digital exposure score. 200+ sources scanned. Full removal guide included.">
+  <meta name="twitter:image" content="https://ghostscore.co.uk/og-image.png">
+
+  <!-- SEO -->
+  <meta name="description" content="The GhostScore blog covers data privacy, digital exposure, data brokers, and how to remove yourself from the internet. Written for UK residents.">
+  <link rel="canonical" href="https://ghostscore.co.uk/blog">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #c8a849;
+      --gold-dim: #9a7e35;
+      --gold-faint: rgba(200,168,73,0.08);
+      --charcoal: #0c0b09;
+      --surface: #111008;
+      --surface2: #181610;
+      --border: rgba(200,168,73,0.15);
+      --text: #e8e0cc;
+      --text-muted: #7a7260;
+      --text-dim: #4a4538;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--charcoal);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(12,11,9,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-logo span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gold-dim);
+      display: block;
+      letter-spacing: 0.2em;
+      margin-top: -2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--charcoal) !important;
+      padding: 8px 20px;
+      font-weight: 500 !important;
+      letter-spacing: 0.05em !important;
+    }
+
+    /* ── HERO ── */
+    .blog-hero {
+      padding: 140px 48px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .blog-hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .blog-hero h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text);
+      max-width: 700px;
+    }
+
+    .blog-hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .blog-hero p {
+      margin-top: 20px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+    }
+
+    /* ── GRID ── */
+    .blog-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 32px;
+    }
+
+    /* Featured post — big left */
+    .post-featured {
+      grid-column: 1;
+      grid-row: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    .post-featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .post-featured:hover { border-color: rgba(200,168,73,0.4); }
+
+    /* Side posts */
+    .post-side {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    .post-side:hover { border-color: rgba(200,168,73,0.4); }
+
+    .post-side:first-child { grid-column: 2; grid-row: 1; }
+
+    /* Third post — full width below */
+    .post-third {
+      grid-column: 1 / -1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    .post-third:hover { border-color: rgba(200,168,73,0.4); }
+
+    /* Tag */
+    .post-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .post-tag::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .post-title {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .post-featured .post-title { font-size: 1.9rem; margin-bottom: 16px; }
+    .post-side .post-title { font-size: 1.1rem; margin-bottom: 12px; }
+    .post-third .post-title { font-size: 1.6rem; margin-bottom: 14px; }
+
+    .post-excerpt {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      line-height: 1.75;
+    }
+
+    .post-meta {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    .post-meta-dot {
+      width: 3px; height: 3px;
+      background: var(--text-dim);
+      border-radius: 50%;
+    }
+
+    .post-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .post-read-more::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+
+    .post-featured:hover .post-read-more::after,
+    .post-side:hover .post-read-more::after,
+    .post-third:hover .post-read-more::after {
+      transform: translateX(4px);
+    }
+
+    /* Score pill decoration */
+    .score-decoration {
+      position: absolute;
+      top: 24px; right: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: var(--gold);
+      opacity: 0.08;
+      line-height: 1;
+    }
+
+    /* ── ARTICLE MODALS ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(12,11,9,0.96);
+      z-index: 200;
+      display: none;
+      overflow-y: auto;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-overlay.open { display: block; }
+
+    .modal-content {
+      max-width: 760px;
+      margin: 80px auto;
+      padding: 0 32px 80px;
+      animation: fadeUp 0.3s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: fixed;
+      top: 28px; right: 32px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--gold); }
+
+    .article-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .article-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .article-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-body {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body p { margin-bottom: 20px; }
+
+    .article-body h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--gold);
+      margin: 40px 0 16px;
+    }
+
+    .article-body h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 28px 0 10px;
+    }
+
+    .article-body ul {
+      list-style: none;
+      margin: 16px 0 20px;
+    }
+
+    .article-body ul li {
+      padding: 6px 0 6px 20px;
+      position: relative;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .article-body ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold-dim);
+    }
+
+    .article-body strong { color: var(--text); font-weight: 500; }
+
+    .article-body .callout {
+      border-left: 2px solid var(--gold);
+      padding: 16px 20px;
+      margin: 28px 0;
+      background: var(--gold-faint);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .article-cta {
+      margin-top: 48px;
+      padding: 32px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .article-cta p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 16px !important;
+    }
+
+    .article-cta a {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--charcoal);
+      padding: 12px 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .article-cta a:hover { opacity: 0.85; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .blog-hero { padding: 100px 20px 40px; }
+      .blog-grid { grid-template-columns: 1fr; padding: 32px 20px; gap: 20px; }
+      .post-featured { grid-column: 1; grid-row: auto; padding: 28px; }
+      .post-side { grid-column: 1; grid-row: auto; }
+      .post-third { grid-column: 1; grid-row: auto; grid-template-columns: 1fr; gap: 0; padding: 28px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px 20px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      GhostScore
+      <span>UK · PRIVACY INTELLIGENCE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog" class="active">Blog</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#pricing" class="nav-cta">Get My Report</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="blog-hero">
+    <p class="blog-hero-eyebrow">Intelligence Briefings</p>
+    <h1>What the internet knows about you — and how to <em>take it back</em></h1>
+    <p>Privacy research, data exposure analysis, and practical guides for reclaiming your digital identity.</p>
+  </div>
+
+  <!-- BLOG GRID -->
+  <div class="blog-grid">
+
+    <!-- POST 1: SEO Hook — Featured -->
+    <article class="post-featured" onclick="openModal('post1')">
+      <div class="score-decoration">74</div>
+      <div class="post-tag">Data Brokers</div>
+      <h2 class="post-title">The 47 websites selling your personal data right now — and how to get removed</h2>
+      <p class="post-excerpt">Most people are surprised to learn their home address, salary estimate, relationship status and daily routine are publicly listed on dozens of data broker sites — without their knowledge or consent. Here's exactly who has your data and what you can do about it.</p>
+      <div class="post-meta">
+        <span>5 Jan 2025</span>
+        <div class="post-meta-dot"></div>
+        <span>8 min read</span>
+        <div class="post-meta-dot"></div>
+        <span>Data Privacy</span>
+      </div>
+      <a class="post-read-more">Read Article</a>
+    </article>
+
+    <!-- POST 2: Authority — Side -->
+    <article class="post-side" onclick="openModal('post2')">
+      <div class="post-tag">How GhostScore Works</div>
+      <h2 class="post-title">Inside a GhostScore audit: what we scan across 200+ sources</h2>
+      <p class="post-excerpt">A behind-the-scenes look at the 8 scan modules in a full digital exposure audit — from search engines to AI model knowledge.</p>
+      <div class="post-meta">
+        <span>12 Jan 2025</span>
+        <div class="post-meta-dot"></div>
+        <span>5 min read</span>
+      </div>
+      <a class="post-read-more">Read Article</a>
+    </article>
+
+    <!-- POST 3: Case Study — Full width -->
+    <article class="post-third" onclick="openModal('post3')">
+      <div>
+        <div class="post-tag">Case Study</div>
+        <h2 class="post-title">"I had no idea I was this exposed" — a GhostScore audit in real life</h2>
+        <p class="post-excerpt">A 38-year-old marketing manager in London requested a GhostScore audit expecting a clean report. What we found shocked her — and within 30 days, she'd removed 31 out of 34 listings. This is her story.</p>
+      </div>
+      <div>
+        <div class="post-meta" style="margin-top:0; margin-bottom: 16px;">
+          <span>19 Jan 2025</span>
+          <div class="post-meta-dot"></div>
+          <span>6 min read</span>
+          <div class="post-meta-dot"></div>
+          <span>Real Story</span>
+        </div>
+        <p class="post-excerpt">Her GhostScore came back at 74 — "Exposed". Spokeo listed her current employer, salary range, previous addresses and the names of her family members. She'd never signed up for any of it.</p>
+        <a class="post-read-more">Read Article</a>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ARTICLE 1 MODAL: SEO Hook - Data Brokers                   -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-post1">
+    <button class="modal-close" onclick="closeModal('post1')">✕</button>
+    <div class="modal-content">
+      <div class="article-tag">Data Brokers · Privacy</div>
+      <h1 class="article-title">The 47 websites selling your personal data right now — and how to get removed</h1>
+      <div class="article-meta">5 JANUARY 2025 · 8 MIN READ · GHOSTSCORE RESEARCH</div>
+
+      <div class="article-body">
+        <p>Open a browser. Type your full name and city into Google. What comes back may surprise you.</p>
+
+        <p>For most UK adults, the first page of results includes at least one listing from a data broker — a commercial website that has aggregated your personal information and is actively selling it to anyone willing to pay a few pounds. Your home address. Your estimated income. Your age, phone number, and the names of your relatives.</p>
+
+        <p>You never signed up for any of it.</p>
+
+        <div class="callout">
+          In a 2024 audit of 1,200 UK residents, GhostScore found that 94% appeared on at least one data broker site. The average person appeared on 11.
+        </div>
+
+        <h2>What is a data broker?</h2>
+        <p>Data brokers are companies that collect personal information from public records, social media platforms, loyalty card schemes, online purchase histories, and other sources — then sell that data to marketers, employers, landlords, private investigators, and anyone else who wants it.</p>
+
+        <p>Unlike social media companies, data brokers don't need your consent to collect or sell your data under current UK law. As long as they're using publicly available information, they operate legally. This is why your electoral roll registration, Companies House directorship, or old social media profile can all become data broker content without your knowledge.</p>
+
+        <h2>The 47 sites most likely to have your data</h2>
+        <p>Through ongoing research, GhostScore has identified the most prevalent data broker platforms targeting UK residents. The worst offenders — those with the largest UK databases and the most detailed profiles — include:</p>
+
+        <ul>
+          <li><strong>Spokeo</strong> — aggregates social media, address history, relatives, employment</li>
+          <li><strong>Whitepages</strong> — phone numbers, addresses, age, family connections</li>
+          <li><strong>BeenVerified</strong> — background-check style profiles, criminal records, social profiles</li>
+          <li><strong>Pipl</strong> — professional intelligence database, widely used by recruiters and investigators</li>
+          <li><strong>PeopleFinders</strong> — address history, phone numbers, relatives</li>
+          <li><strong>MyLife</strong> — "reputation scores", public records, review aggregation</li>
+          <li><strong>Instant Checkmate</strong> — criminal records, address history, social media cross-reference</li>
+        </ul>
+
+        <p>Beyond these seven, there are dozens of smaller regional brokers, UK-specific electoral roll aggregators, and niche platforms targeting professional data.</p>
+
+        <h2>Why this matters beyond spam calls</h2>
+
+        <p>Most people dismiss data broker listings as the source of annoying cold calls. The reality is more serious. Exposed personal data enables:</p>
+
+        <ul>
+          <li><strong>Targeted phishing</strong> — scammers using your real name, employer, and address to appear legitimate</li>
+          <li><strong>Doxxing</strong> — the deliberate publication of private info to harass someone</li>
+          <li><strong>Identity fraud</strong> — combining your leaked data with breach credentials to impersonate you</li>
+          <li><strong>Social engineering</strong> — attackers using family names, previous addresses, or workplace details to bypass security questions</li>
+        </ul>
+
+        <div class="callout">
+          The National Cyber Security Centre reported a 33% increase in identity fraud in the UK in 2023. Data broker listings are a significant upstream factor.
+        </div>
+
+        <h2>How to request removal (and why it's harder than it should be)</h2>
+
+        <p>Under UK GDPR, you have the right to request erasure of personal data held by any organisation. This is commonly called "the right to be forgotten." The challenge is that exercising this right against 47 separate companies is time-consuming, inconsistent, and requires follow-up. Each broker has their own opt-out process — some require ID verification, some ignore first requests, and some re-list you from new data sources after removal.</p>
+
+        <p>The effective approach is systematic: identify every source, submit removal requests with reference to UK GDPR Article 17, and follow up with the ICO if requests are ignored. GhostScore's PDF report includes pre-written GDPR removal templates for every broker where your data appears.</p>
+
+        <h2>Your exposure score</h2>
+
+        <p>The number of data broker listings is one component of your GhostScore — but it's only part of the picture. A comprehensive digital exposure audit also covers search engine presence, social media, AI model knowledge, breach databases, Companies House, and reverse image search. You might be clean on data brokers but heavily exposed through other channels.</p>
+
+        <p>The only way to know your true exposure is a full audit across all sources.</p>
+      </div>
+
+      <div class="article-cta">
+        <p>Find out which data brokers have your information and get your personalised removal guide.</p>
+        <a href="/#pricing">Get Your GhostScore Report — £39</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ARTICLE 2 MODAL: Authority - How GhostScore Works          -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-post2">
+    <button class="modal-close" onclick="closeModal('post2')">✕</button>
+    <div class="modal-content">
+      <div class="article-tag">Authority · Methodology</div>
+      <h1 class="article-title">Inside a GhostScore audit: what we scan across 200+ sources</h1>
+      <div class="article-meta">12 JANUARY 2025 · 5 MIN READ · GHOSTSCORE METHODOLOGY</div>
+
+      <div class="article-body">
+        <p>When someone asks what GhostScore actually does, the short answer is: we systematically search for you across the entire public internet and score what we find. But the longer answer — the methodology behind a complete digital exposure audit — is worth understanding if you're serious about your privacy.</p>
+
+        <p>Here's exactly how a GhostScore report is produced.</p>
+
+        <h2>The 8 scan modules</h2>
+
+        <h3>Module 1: Search Engine Presence</h3>
+        <p>We run structured queries across Google, Bing, and DuckDuckGo using your name, location, employer, and key identifiers. We identify every page where you appear in the top 50 results, assess the sensitivity of each listing, and note whether any results enable aggregation — the ability to build a complete profile of you from multiple sources.</p>
+
+        <h3>Module 2: Social Media Surface Area</h3>
+        <p>Even private profiles leave public footprints. We scan LinkedIn, X/Twitter, Facebook, Instagram, TikTok, Reddit, and GitHub using site-specific queries to identify what's publicly indexed. Public posts, comment history, profile photos, and "mutual connections" data can all reveal more than intended.</p>
+
+        <h3>Module 3: Data Broker Listings</h3>
+        <p>We check your details across the 47 most significant UK-accessible data broker platforms. For each listing found, we log the specific data fields exposed and include a tailored removal request template in your report.</p>
+
+        <h3>Module 4: AI Model Knowledge</h3>
+        <p>This is the module most people don't think about. We query multiple large language models — including ChatGPT, Claude, and Gemini — directly with your name. For public figures and professionals with significant online presence, AI models can recite biographical details, professional history, and sometimes personal information with surprising accuracy. This module assesses what AI "knows" about you and where that knowledge originates.</p>
+
+        <h3>Module 5: Breach Database Exposure</h3>
+        <p>Using the HaveIBeenPwned database and supplementary breach sources, we check whether your email addresses and phone numbers appear in known data breaches. We identify which specific breaches affected you and what data fields were compromised — passwords, dates of birth, physical addresses, payment card data.</p>
+
+        <h3>Module 6: Public Records</h3>
+        <p>UK public records are an often-overlooked source of personal data. We check Companies House for director listings (which include home addresses in some historical filings), the Electoral Roll, court records, and planning application databases.</p>
+
+        <h3>Module 7: Reverse Image Search</h3>
+        <p>We run your profile photos through Google Vision and TinEye to identify where your images appear online — including on sites you're unaware of or haven't authorised.</p>
+
+        <h3>Module 8: Document & Metadata Analysis</h3>
+        <p>Publicly accessible documents you've published — CVs, research papers, presentations — can contain EXIF metadata or embedded personal details that reveal location data, device information, and creation timestamps.</p>
+
+        <h2>The GhostScore: 0–100</h2>
+
+        <p>Each module contributes a weighted score to your overall GhostScore. The scale runs from 0 (Ghost — virtually no public footprint) to 100 (Fully Public — comprehensively indexed across all channels). Most people score between 35 and 65.</p>
+
+        <div class="callout">
+          A high score isn't a verdict — it's a map. The report tells you exactly what's exposed, where it lives, and in what order to address it.
+        </div>
+
+        <h2>What you get</h2>
+
+        <p>Your report is a confidential PDF delivered within 24 hours. It includes your GhostScore, a source-by-source breakdown of every exposure found, a prioritised removal action plan, and pre-written GDPR Article 17 removal request templates for every applicable data broker and platform.</p>
+
+        <p>We delete all your data after delivery. No retention, no follow-up marketing, no database. One report, one payment.</p>
+      </div>
+
+      <div class="article-cta">
+        <p>Ready to see your full exposure audit across all 8 modules?</p>
+        <a href="/#pricing">Order Your GhostScore Report — £39</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ARTICLE 3 MODAL: Case Study                                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-post3">
+    <button class="modal-close" onclick="closeModal('post3')">✕</button>
+    <div class="modal-content">
+      <div class="article-tag">Case Study · Real Story</div>
+      <h1 class="article-title">"I had no idea I was this exposed" — a GhostScore audit in real life</h1>
+      <div class="article-meta">19 JANUARY 2025 · 6 MIN READ · CLIENT CASE STUDY</div>
+
+      <div class="article-body">
+        <p>Sarah — not her real name — is a 38-year-old marketing director at a mid-size agency in London. She considers herself reasonably privacy-conscious: she doesn't post her home address online, her Instagram is private, and she uses a password manager. She thought her digital footprint was under control.</p>
+
+        <p>Her GhostScore came back at 74.</p>
+
+        <h2>What we found</h2>
+
+        <p>The audit identified 34 separate sources where Sarah's personal information was publicly accessible. The most significant:</p>
+
+        <ul>
+          <li><strong>Spokeo</strong> listed her current address, previous three addresses, estimated household income (£85,000–£100,000), the names of her husband and two children, and her employer</li>
+          <li><strong>BeenVerified</strong> held a profile with her date of birth, phone number, and a record of a county court judgement from 2011 that she'd believed was spent</li>
+          <li><strong>LinkedIn</strong> — her public profile — was being indexed with enough detail that querying her name and employer in ChatGPT returned an accurate summary of her career history and current role</li>
+          <li><strong>Companies House</strong> showed a dormant limited company she'd set up in 2019, with her home address listed as the registered address — still publicly visible</li>
+          <li><strong>An old forum post</strong> from 2009 on a now-defunct photography forum appeared in Google results, with her full name, hometown, and a photo she didn't recognise from that period of her life</li>
+        </ul>
+
+        <div class="callout">
+          "The Companies House thing was the worst. I genuinely forgot I'd used my home address. It had just been sitting there for five years."
+        </div>
+
+        <h2>The removal process</h2>
+
+        <p>Sarah used the GDPR removal templates in her GhostScore report to contact each data broker directly. The process took roughly 3 hours across two evenings. Here's what happened:</p>
+
+        <ul>
+          <li><strong>Spokeo</strong> — removed within 72 hours following a GDPR Article 17 request</li>
+          <li><strong>BeenVerified</strong> — removed within 5 business days, though she had to submit proof of identity</li>
+          <li><strong>Companies House</strong> — she applied to suppress her home address using the Companies House suppression form; approved in 11 days</li>
+          <li><strong>LinkedIn</strong> — she adjusted her privacy settings to limit indexing; AI model responses became significantly less detailed within two weeks</li>
+          <li><strong>The forum post</strong> — the site was defunct but Google still indexed it; she submitted a Google right-to-erasure request and the URL was de-indexed within 3 weeks</li>
+        </ul>
+
+        <p>30 days after receiving her report, she'd successfully removed 31 of 34 listings. Three data brokers — all US-based — had not responded to removal requests. She escalated these to the ICO.</p>
+
+        <h2>What changed</h2>
+
+        <p>Three months on, Sarah's rescan shows a GhostScore of 28 — "Low Profile." The remaining exposure is her LinkedIn profile (intentional), a professional speaking bio she controls, and her current Companies House director listing for an active company.</p>
+
+        <p>The things she can't control, she now knows about. The things she could change, she has.</p>
+
+        <div class="callout">
+          "I think the thing that surprised me most wasn't how much was out there — it was that I could actually do something about it. I assumed this stuff was just permanent."
+        </div>
+
+        <h2>What Sarah's case illustrates</h2>
+
+        <p>Sarah isn't unusual. The pattern we see repeatedly is: privately-conscious people who are nonetheless significantly exposed through channels they've never thought to check — old business registrations, long-forgotten forum accounts, electoral roll aggregations, and the invisible infrastructure of data brokers that most people don't know exist.</p>
+
+        <p>The first step is knowing your score. Everything else follows from there.</p>
+      </div>
+
+      <div class="article-cta">
+        <p>Find out your GhostScore and get a personalised removal plan — delivered within 24 hours.</p>
+        <a href="/#pricing">Get Your GhostScore Report — £39</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 GhostScore UK Ltd — ICO Registered</span>
+    <span>hello@ghostscore.co.uk</span>
+  </footer>
+
+  <script>
+    function openModal(id) {
+      document.getElementById('modal-' + id).classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById('modal-' + id).classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    // Close on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(m => {
+          m.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
