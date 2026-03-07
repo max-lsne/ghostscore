@@ -3,29 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GhostScore — Payment Confirmed</title>
+<title>Order Confirmed — GhostScore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- ✅ Meta Pixel Base Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1448934826913683');
+fbq('track', 'PageView');
+// ✅ Purchase event — fires when customer lands on this page after paying
+fbq('track', 'Purchase', {value: 39.00, currency: 'GBP'});
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1448934826913683&ev=Purchase&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel -->
+
 <style>
-  body {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    background: #0c0b09; color: #f0ece4;
-    display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; margin: 0; padding: 20px;
-    text-align: center;
+  :root {
+    --bg: #0c0b09;
+    --card: #14130f;
+    --border: #252319;
+    --text: #f0ece4;
+    --dim: #9e9787;
+    --muted: #5e584c;
+    --gold: #c8a849;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
   }
-  .box { max-width: 440px; }
-  h1 { font-size: 28px; margin-bottom: 12px; }
-  p { color: #9e9787; font-size: 15px; line-height: 1.6; }
-  .check { font-size: 48px; margin-bottom: 16px; }
-  a { color: #c8a849; text-decoration: underline; }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 40px;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .icon {
+    font-size: 40px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .sub {
+    font-size: 14px;
+    color: var(--dim);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .steps {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    text-align: left;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .step-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .step-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text {
+    font-size: 13px;
+    color: var(--dim);
+    font-weight: 300;
+    line-height: 1.55;
+  }
+  .step-text strong { color: var(--text); font-weight: 500; }
+  .notice {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .logo {
+    position: absolute;
+    top: 20px; left: 24px;
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--gold);
+    opacity: 0.6;
+  }
 </style>
 </head>
 <body>
-<div class="box">
-  <div class="check">✓</div>
-  <h1>Payment confirmed</h1>
-  <p>Thank you. Your GhostScore audit is now being compiled.<br><br>
-  You'll receive your confidential report via email within <strong style="color:#f0ece4">24 hours</strong>.<br><br>
-  If you have questions, contact us at <a href="mailto:hello@ghostscore.co.uk">hello@ghostscore.co.uk</a>.</p>
-</div>
+  <div class="card">
+    <div class="logo">GhostScore</div>
+    <span class="icon">✓</span>
+    <div class="eyebrow">Order Confirmed</div>
+    <h1>Your audit is underway</h1>
+    <p class="sub">
+      Payment received. We're now scanning 200+ sources for your digital footprint.
+      Your confidential report will be delivered to your inbox within 24 hours.
+    </p>
+
+    <div class="steps">
+      <div class="step-row">
+        <span class="step-num">01</span>
+        <div class="step-text"><strong>Check your email</strong> — you'll receive a confirmation now and your PDF report within 24 hours.</div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">02</span>
+        <div class="step-text"><strong>Add to contacts</strong> — mark hello@ghostscore.co.uk as a trusted sender so your report doesn't land in spam.</div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">03</span>
+        <div class="step-text"><strong>Nothing else required</strong> — we'll handle the rest. We may email you if we need clarification on any details.</div>
+      </div>
+    </div>
+
+    <p class="notice">
+      Questions? Email <strong>hello@ghostscore.co.uk</strong><br>
+      All your data is encrypted and permanently deleted after your report is delivered.
+    </p>
+  </div>
 </body>
 </html>
