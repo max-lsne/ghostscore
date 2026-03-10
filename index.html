@@ -1296,31 +1296,9 @@ document.getElementById('gf')?.addEventListener('submit', function(e){
     if (value && ENTRY_IDS[key]) params.append(ENTRY_IDS[key], value);
   }
 
-  const iframe = document.createElement('iframe');
-  iframe.style.display = 'none';
-  iframe.name = 'hidden_iframe';
-  document.body.appendChild(iframe);
-
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = GOOGLE_FORM_URL;
-  form.target = 'hidden_iframe';
-
-  for (const [entryId, value] of params.entries()) {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = entryId;
-    input.value = value;
-    form.appendChild(input);
-  }
-
-  document.body.appendChild(form);
-  form.submit();
-
-  setTimeout(() => {
-    const stripeUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(data.email);
-    window.location.href = stripeUrl;
-  }, 500);
+navigator.sendBeacon(GOOGLE_FORM_URL, params);
+const stripeUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(data.email);
+window.location.href = stripeUrl;
 });
 </script>
 
