@@ -22,6 +22,7 @@
   <!-- SEO -->
   <meta name="description" content="The GhostScore blog covers data privacy, digital exposure, data brokers, and how to remove yourself from the internet. Written for UK residents.">
   <link rel="canonical" href="https://ghostscore.co.uk/blog">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -482,26 +483,109 @@
       footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px 20px; }
       .nav-links { display: none; }
     }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute; top: -100%; left: 16px;
+      background: var(--gold); color: var(--charcoal); padding: 8px 16px;
+      font-size: 13px; font-weight: 600; text-decoration: none; z-index: 9999;
+      border-radius: 4px; transition: top 0.2s;
+    }
+    .skip-link:focus { top: 8px; }
+
+    /* ── HAMBURGER + MOBILE MENU ── */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 4px; color: inherit;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px; background: var(--text-muted); transition: all 0.25s;
+    }
+    .nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media(max-width: 767px) {
+      .nav-hamburger { display: flex; }
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 65px; left: 0; right: 0;
+      background: rgba(12,11,9,0.98); border-bottom: 1px solid var(--border);
+      padding: 20px 48px; z-index: 99; flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      display: block; padding: 14px 0; font-size: 14px; color: var(--text-muted);
+      border-bottom: 1px solid var(--border); text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ── ARTICLE CARD KEYBOARD FOCUS ── */
+    .post-featured:focus, .post-side:focus, .post-third:focus {
+      outline: 2px solid var(--gold); outline-offset: 2px;
+    }
+
+    /* ── INLINE CTA (mid-article) ── */
+    .article-cta-inline {
+      margin: 36px 0;
+      padding: 20px 24px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      flex-wrap: wrap;
+    }
+    .article-cta-inline p {
+      font-size: 0.85rem; color: var(--text-muted); margin: 0 !important;
+      flex: 1; min-width: 160px;
+    }
+    .article-cta-inline a {
+      display: inline-block; background: var(--gold); color: var(--charcoal);
+      padding: 10px 22px; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; font-weight: 500; transition: opacity 0.2s; white-space: nowrap;
+    }
+    .article-cta-inline a:hover { opacity: 0.85; }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      nav, .modal-overlay, .mobile-menu { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(12,11,9,0.98); }
+      .modal-content { animation: none; }
+    }
   </style>
 </head>
 <body>
 
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- NAV -->
-  <nav>
+  <nav aria-label="Main navigation">
     <a href="/" class="nav-logo">
       GhostScore
       <span>UK · PRIVACY INTELLIGENCE</span>
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" role="list">
       <li><a href="/">Home</a></li>
-      <li><a href="/blog" class="active">Blog</a></li>
+      <li><a href="/blog" class="active" aria-current="page">Blog</a></li>
       <li><a href="/#how-it-works">How It Works</a></li>
       <li><a href="/#pricing" class="nav-cta">Get My Report</a></li>
     </ul>
+    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="blog-mobile-menu" onclick="toggleMobileMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="blog-mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/#how-it-works">How It Works</a>
+    <a href="/#pricing">Get My Report — £39</a>
+  </div>
+
   <!-- HERO -->
-  <div class="blog-hero">
+  <div class="blog-hero" id="main-content">
     <p class="blog-hero-eyebrow">Intelligence Briefings</p>
     <h1>What the internet knows about you — and how to <em>take it back</em></h1>
     <p>Privacy research, data exposure analysis, and practical guides for reclaiming your digital identity.</p>
@@ -511,7 +595,7 @@
   <div class="blog-grid">
 
     <!-- POST 1: SEO Hook — Featured -->
-    <article class="post-featured" onclick="openModal('post1')">
+    <article class="post-featured" onclick="openModal('post1')" tabindex="0" role="button" aria-label="Read article: The 47 websites selling your personal data" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openModal('post1');}">
       <div class="score-decoration">74</div>
       <div class="post-tag">Data Brokers</div>
       <h2 class="post-title">The 47 websites selling your personal data right now — and how to get removed</h2>
@@ -527,7 +611,7 @@
     </article>
 
     <!-- POST 2: Authority — Side -->
-    <article class="post-side" onclick="openModal('post2')">
+    <article class="post-side" onclick="openModal('post2')" tabindex="0" role="button" aria-label="Read article: Inside a GhostScore audit" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openModal('post2');}">
       <div class="post-tag">How GhostScore Works</div>
       <h2 class="post-title">Inside a GhostScore audit: what we scan across 200+ sources</h2>
       <p class="post-excerpt">A behind-the-scenes look at the 8 scan modules in a full digital exposure audit — from search engines to AI model knowledge.</p>
@@ -540,7 +624,7 @@
     </article>
 
     <!-- POST 3: Case Study — Full width -->
-    <article class="post-third" onclick="openModal('post3')">
+    <article class="post-third" onclick="openModal('post3')" tabindex="0" role="button" aria-label="Read article: A GhostScore audit in real life" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openModal('post3');}">
       <div>
         <div class="post-tag">Case Study</div>
         <h2 class="post-title">"I had no idea I was this exposed" — a GhostScore audit in real life</h2>
@@ -564,11 +648,11 @@
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- ARTICLE 1 MODAL: SEO Hook - Data Brokers                   -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <div class="modal-overlay" id="modal-post1">
-    <button class="modal-close" onclick="closeModal('post1')">✕</button>
+  <div class="modal-overlay" id="modal-post1" role="dialog" aria-modal="true" aria-labelledby="modal-post1-title" aria-hidden="true">
+    <button class="modal-close" onclick="closeModal('post1')" aria-label="Close article">✕</button>
     <div class="modal-content">
       <div class="article-tag">Data Brokers · Privacy</div>
-      <h1 class="article-title">The 47 websites selling your personal data right now — and how to get removed</h1>
+      <h1 class="article-title" id="modal-post1-title">The 47 websites selling your personal data right now — and how to get removed</h1>
       <div class="article-meta">5 JANUARY 2025 · 8 MIN READ · GHOSTSCORE RESEARCH</div>
 
       <div class="article-body">
@@ -586,6 +670,11 @@
         <p>Data brokers are companies that collect personal information from public records, social media platforms, loyalty card schemes, online purchase histories, and other sources — then sell that data to marketers, employers, landlords, private investigators, and anyone else who wants it.</p>
 
         <p>Unlike social media companies, data brokers don't need your consent to collect or sell your data under current UK law. As long as they're using publicly available information, they operate legally. This is why your electoral roll registration, Companies House directorship, or old social media profile can all become data broker content without your knowledge.</p>
+
+        <div class="article-cta-inline">
+          <p>Curious which data brokers have your data? Find out now.</p>
+          <a href="/#pricing">Get My GhostScore — £39</a>
+        </div>
 
         <h2>The 47 sites most likely to have your data</h2>
         <p>Through ongoing research, GhostScore has identified the most prevalent data broker platforms targeting UK residents. The worst offenders — those with the largest UK databases and the most detailed profiles — include:</p>
@@ -640,11 +729,11 @@
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- ARTICLE 2 MODAL: Authority - How GhostScore Works          -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <div class="modal-overlay" id="modal-post2">
-    <button class="modal-close" onclick="closeModal('post2')">✕</button>
+  <div class="modal-overlay" id="modal-post2" role="dialog" aria-modal="true" aria-labelledby="modal-post2-title" aria-hidden="true">
+    <button class="modal-close" onclick="closeModal('post2')" aria-label="Close article">✕</button>
     <div class="modal-content">
       <div class="article-tag">Authority · Methodology</div>
-      <h1 class="article-title">Inside a GhostScore audit: what we scan across 200+ sources</h1>
+      <h1 class="article-title" id="modal-post2-title">Inside a GhostScore audit: what we scan across 200+ sources</h1>
       <div class="article-meta">12 JANUARY 2025 · 5 MIN READ · GHOSTSCORE METHODOLOGY</div>
 
       <div class="article-body">
@@ -665,6 +754,11 @@
 
         <h3>Module 4: AI Model Knowledge</h3>
         <p>This is the module most people don't think about. We query multiple large language models — including ChatGPT, Claude, and Gemini — directly with your name. For public figures and professionals with significant online presence, AI models can recite biographical details, professional history, and sometimes personal information with surprising accuracy. This module assesses what AI "knows" about you and where that knowledge originates.</p>
+
+        <div class="article-cta-inline">
+          <p>Want to see all 8 modules applied to your own profile?</p>
+          <a href="/#pricing">Order Your Report — £39</a>
+        </div>
 
         <h3>Module 5: Breach Database Exposure</h3>
         <p>Using the HaveIBeenPwned database and supplementary breach sources, we check whether your email addresses and phone numbers appear in known data breaches. We identify which specific breaches affected you and what data fields were compromised — passwords, dates of birth, physical addresses, payment card data.</p>
@@ -703,11 +797,11 @@
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- ARTICLE 3 MODAL: Case Study                                -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <div class="modal-overlay" id="modal-post3">
-    <button class="modal-close" onclick="closeModal('post3')">✕</button>
+  <div class="modal-overlay" id="modal-post3" role="dialog" aria-modal="true" aria-labelledby="modal-post3-title" aria-hidden="true">
+    <button class="modal-close" onclick="closeModal('post3')" aria-label="Close article">✕</button>
     <div class="modal-content">
       <div class="article-tag">Case Study · Real Story</div>
-      <h1 class="article-title">"I had no idea I was this exposed" — a GhostScore audit in real life</h1>
+      <h1 class="article-title" id="modal-post3-title">"I had no idea I was this exposed" — a GhostScore audit in real life</h1>
       <div class="article-meta">19 JANUARY 2025 · 6 MIN READ · CLIENT CASE STUDY</div>
 
       <div class="article-body">
@@ -729,6 +823,11 @@
 
         <div class="callout">
           "The Companies House thing was the worst. I genuinely forgot I'd used my home address. It had just been sitting there for five years."
+        </div>
+
+        <div class="article-cta-inline">
+          <p>See what a real GhostScore report includes — and what yours might reveal.</p>
+          <a href="/#pricing">Get Your Report — £39</a>
         </div>
 
         <h2>The removal process</h2>
@@ -771,37 +870,139 @@
 
   <!-- FOOTER -->
   <footer>
-    <span>© 2025 GhostScore UK Ltd — ICO Registered</span>
-    <span>hello@ghostscore.co.uk</span>
+    <span>© 2026 GhostScore UK Ltd — ICO Registered</span>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+      <a href="/privacy" style="color:inherit;font-size:0.65rem;letter-spacing:0.1em;">Privacy Policy</a>
+      <a href="/terms" style="color:inherit;font-size:0.65rem;letter-spacing:0.1em;">Terms</a>
+      <a href="mailto:hello@ghostscore.co.uk" style="color:inherit;font-size:0.65rem;letter-spacing:0.1em;">Contact</a>
+    </div>
   </footer>
 
   <script>
+    // Track which element triggered the modal so we can restore focus on close
+    let _lastFocused = null;
+
     function openModal(id) {
-      document.getElementById('modal-' + id).classList.add('open');
+      const modal = document.getElementById('modal-' + id);
+      _lastFocused = document.activeElement;
+      modal.classList.add('open');
+      modal.removeAttribute('aria-hidden');
       document.body.style.overflow = 'hidden';
+      // Focus first focusable element inside modal
+      const focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length) focusable[0].focus();
+      // Update URL hash
+      history.replaceState(null, '', '#' + id);
     }
+
     function closeModal(id) {
-      document.getElementById('modal-' + id).classList.remove('open');
+      const modal = document.getElementById('modal-' + id);
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      history.replaceState(null, '', window.location.pathname);
+      if (_lastFocused) { _lastFocused.focus(); _lastFocused = null; }
     }
-    // Close on overlay click
-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
-      overlay.addEventListener('click', function(e) {
-        if (e.target === this) {
-          this.classList.remove('open');
-          document.body.style.overflow = '';
+
+    // Focus trap inside open modals
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        const openModal = document.querySelector('.modal-overlay.open');
+        if (!openModal) return;
+        const focusable = Array.from(openModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'));
+        if (!focusable.length) return;
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+        } else {
+          if (document.activeElement === last) { e.preventDefault(); first.focus(); }
         }
-      });
-    });
-    // Close on Escape
-    document.addEventListener('keydown', e => {
+      }
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-overlay.open').forEach(m => {
-          m.classList.remove('open');
-          document.body.style.overflow = '';
+          const id = m.id.replace('modal-', '');
+          closeModal(id);
         });
       }
     });
+
+    // Close on overlay backdrop click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) {
+          const id = this.id.replace('modal-', '');
+          closeModal(id);
+        }
+      });
+    });
+
+    // Open modal from URL hash on page load (e.g. /blog#post1)
+    const hash = window.location.hash.replace('#', '');
+    if (hash && document.getElementById('modal-' + hash)) {
+      openModal(hash);
+    }
+
+    // Mobile hamburger
+    function toggleMobileMenu(btn) {
+      const menu = document.getElementById('blog-mobile-menu');
+      const isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+      btn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    }
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('blog-mobile-menu');
+      const btn = document.querySelector('.nav-hamburger');
+      if (menu && menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open navigation menu');
+      }
+    });
+  </script>
+
+  <!-- JSON-LD: Blog -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": "https://ghostscore.co.uk/blog#post1",
+        "headline": "The 47 websites selling your personal data right now — and how to get removed",
+        "description": "Most UK adults appear on at least one data broker site. Find out exactly who has your data and how to get removed under UK GDPR.",
+        "author": { "@type": "Organization", "name": "GhostScore UK" },
+        "publisher": { "@type": "Organization", "name": "GhostScore UK", "url": "https://ghostscore.co.uk" },
+        "datePublished": "2025-01-05",
+        "dateModified": "2026-03-01",
+        "url": "https://ghostscore.co.uk/blog#post1",
+        "articleSection": "Data Privacy"
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": "https://ghostscore.co.uk/blog#post2",
+        "headline": "Inside a GhostScore audit: what we scan across 200+ sources",
+        "description": "A behind-the-scenes look at the 8 scan modules in a full digital exposure audit — from search engines to AI model knowledge.",
+        "author": { "@type": "Organization", "name": "GhostScore UK" },
+        "publisher": { "@type": "Organization", "name": "GhostScore UK", "url": "https://ghostscore.co.uk" },
+        "datePublished": "2025-01-12",
+        "dateModified": "2026-03-01",
+        "url": "https://ghostscore.co.uk/blog#post2",
+        "articleSection": "How It Works"
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": "https://ghostscore.co.uk/blog#post3",
+        "headline": "\"I had no idea I was this exposed\" — a GhostScore audit in real life",
+        "description": "A 38-year-old marketing director's GhostScore came back at 74. Within 30 days, she'd removed 31 of 34 listings. This is her story.",
+        "author": { "@type": "Organization", "name": "GhostScore UK" },
+        "publisher": { "@type": "Organization", "name": "GhostScore UK", "url": "https://ghostscore.co.uk" },
+        "datePublished": "2025-01-19",
+        "dateModified": "2026-03-01",
+        "url": "https://ghostscore.co.uk/blog#post3",
+        "articleSection": "Case Study"
+      }
+    ]
+  }
   </script>
 </body>
 </html>

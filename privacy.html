@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — GhostScore UK</title>
+<meta name="description" content="GhostScore UK privacy policy. How we collect, use and protect your personal data in accordance with UK GDPR.">
+<link rel="canonical" href="https://ghostscore.co.uk/privacy">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0b09;
+    --card: #14130f;
+    --border: #252319;
+    --border-l: #302e22;
+    --text: #f0ece4;
+    --dim: #9e9787;
+    --muted: #5e584c;
+    --gold: #c8a849;
+    --gold-soft: rgba(200,168,73,0.07);
+    --gold-border: rgba(200,168,73,0.15);
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+  a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { opacity: 0.8; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 14px clamp(20px,5vw,80px);
+    background: rgba(12,11,9,0.92);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: var(--serif); font-size: 17px; text-decoration: none; color: var(--text); }
+  .logo span { color: var(--muted); }
+  .nav-links { display: flex; gap: 24px; align-items: center; list-style: none; }
+  .nav-links a { font-size: 12px; color: var(--dim); letter-spacing: 0.05em; text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-btn {
+    padding: 9px 20px; background: var(--gold); color: var(--bg);
+    font-size: 12px; font-weight: 600; border-radius: 6px;
+    text-decoration: none; transition: all 0.2s; white-space: nowrap;
+  }
+  .nav-btn:hover { background: #d4b454; opacity: 1; }
+
+  /* Hamburger */
+  .nav-hamburger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer;
+    background: none; border: none; padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 2px; background: var(--dim); transition: all 0.25s;
+  }
+  .nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none; position: fixed; top: 56px; left: 0; right: 0;
+    background: rgba(12,11,9,0.98); border-bottom: 1px solid var(--border);
+    padding: 20px clamp(20px,5vw,80px); z-index: 99; flex-direction: column; gap: 0;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    display: block; padding: 14px 0; font-size: 14px; color: var(--dim);
+    border-bottom: 1px solid var(--border); text-decoration: none; transition: color 0.2s;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--gold); }
+  @media(max-width:767px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+  }
+
+  /* SKIP LINK */
+  .skip-link {
+    position: absolute; top: -100%; left: 16px;
+    background: var(--gold); color: var(--bg); padding: 8px 16px;
+    font-size: 13px; font-weight: 600; text-decoration: none; z-index: 9999; border-radius: 4px;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 8px; }
+
+  /* CONTENT */
+  .content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 120px clamp(20px,5vw,40px) 80px;
+  }
+  .page-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .last-updated {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--gold);
+    margin: 44px 0 14px;
+  }
+  h3 {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin: 28px 0 10px;
+  }
+  p { margin-bottom: 18px; font-size: 0.95rem; color: var(--dim); line-height: 1.8; }
+  p strong { color: var(--text); font-weight: 500; }
+  ul, ol { margin: 12px 0 20px; padding-left: 0; list-style: none; }
+  ul li, ol li {
+    padding: 5px 0 5px 22px; position: relative;
+    font-size: 0.9rem; color: var(--dim); line-height: 1.7;
+  }
+  ul li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+  ol { counter-reset: ol-counter; }
+  ol li { counter-increment: ol-counter; }
+  ol li::before {
+    content: counter(ol-counter) '.';
+    position: absolute; left: 0; color: var(--muted);
+    font-family: var(--mono); font-size: 0.75rem;
+  }
+  .callout {
+    border-left: 2px solid var(--gold);
+    padding: 14px 18px;
+    margin: 24px 0;
+    background: var(--gold-soft);
+    font-size: 0.88rem;
+    color: var(--dim);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 28px clamp(20px,5vw,80px);
+    border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 12px;
+    justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 0.65rem;
+    letter-spacing: 0.1em; color: var(--muted);
+  }
+  footer a { color: var(--muted); text-underline-offset: 2px; }
+  footer a:hover { color: var(--dim); }
+  .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    nav, .mobile-menu { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(12,11,9,0.98); }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- NAV -->
+<nav aria-label="Main navigation">
+  <a href="/" class="logo">GhostScore<span>®</span></a>
+  <ul class="nav-links" role="list">
+    <li><a href="/#how">How It Works</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/#pricing" class="nav-btn">Get Audit — £39</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <a href="/#how">How It Works</a>
+  <a href="/blog">Blog</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/#pricing">Get Audit — £39</a>
+</div>
+
+<!-- CONTENT -->
+<main id="main-content">
+  <div class="content">
+    <div class="page-eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="last-updated">Last updated: 1 March 2026</p>
+
+    <p>This Privacy Policy explains how <strong>GhostScore Ltd</strong> ("GhostScore", "we", "us", "our") collects, uses, stores and protects your personal data when you visit <strong>ghostscore.co.uk</strong> or purchase a GhostScore digital exposure report.</p>
+
+    <p>We are committed to handling your data lawfully and transparently in accordance with the <strong>UK General Data Protection Regulation (UK GDPR)</strong> and the <strong>Data Protection Act 2018</strong>.</p>
+
+    <h2>1. Who We Are (Data Controller)</h2>
+    <p><strong>GhostScore Ltd</strong><br>
+    Registered in England &amp; Wales<br>
+    ICO Registration: [ICO Reference Number]<br>
+    Email: <a href="mailto:hello@ghostscore.co.uk">hello@ghostscore.co.uk</a></p>
+
+    <p>For any data protection enquiries, please contact us at the email address above.</p>
+
+    <h2>2. What Data We Collect</h2>
+
+    <h3>Data you provide to us</h3>
+    <p>When you purchase a GhostScore report, we collect the following information:</p>
+    <ul>
+      <li><strong>Full name</strong> — required to conduct your digital exposure audit</li>
+      <li><strong>Email address</strong> — to deliver your report and communicate about your order</li>
+      <li><strong>Location (city/region)</strong> — to scope the audit to relevant sources</li>
+      <li><strong>Payment information</strong> — processed securely by <strong>Stripe</strong>; we do not store card details</li>
+      <li><strong>Any additional identifiers you choose to provide</strong> (e.g. known usernames, previous addresses) — used solely for audit purposes</li>
+    </ul>
+
+    <h3>Data collected automatically</h3>
+    <ul>
+      <li><strong>IP address and browser information</strong> — collected via standard web server logs</li>
+      <li><strong>Cookies and similar technologies</strong> — see Section 7 (Cookies)</li>
+      <li><strong>Advertising interaction data</strong> — via Meta Pixel, only if you have given consent (see Section 7)</li>
+    </ul>
+
+    <h2>3. How We Use Your Data</h2>
+    <p>We use your personal data for the following purposes:</p>
+    <ul>
+      <li><strong>To provide the service</strong> — conducting your digital exposure audit and delivering your PDF report (Lawful basis: contract performance)</li>
+      <li><strong>To communicate with you</strong> — sending your report and responding to queries (Lawful basis: contract performance)</li>
+      <li><strong>To prevent fraud and misuse</strong> — ensuring the service is used as intended (Lawful basis: legitimate interests)</li>
+      <li><strong>To measure advertising effectiveness</strong> — via Meta Pixel, only with your consent (Lawful basis: consent)</li>
+      <li><strong>To comply with legal obligations</strong> — retaining financial records as required by law (Lawful basis: legal obligation)</li>
+    </ul>
+
+    <h2>4. Data Retention</h2>
+
+    <div class="callout">
+      We permanently delete all audit input data (name, identifiers, any personal details you submitted) after your report has been delivered. We do not retain, re-use or sell this data.
+    </div>
+
+    <p>Specifically:</p>
+    <ul>
+      <li><strong>Audit input data</strong> — deleted immediately after report delivery (typically within 24–48 hours of completion)</li>
+      <li><strong>Email address</strong> — retained for up to 30 days after delivery to allow for report re-delivery if needed, then deleted</li>
+      <li><strong>Financial transaction records</strong> — retained for 7 years to comply with HMRC requirements; stored by Stripe under their own privacy policy</li>
+      <li><strong>Web server logs</strong> — retained for 30 days then automatically purged</li>
+    </ul>
+
+    <h2>5. Data Processors (Third Parties)</h2>
+    <p>We use the following third-party services to operate our business. Each acts as a data processor under our instruction:</p>
+    <ul>
+      <li><strong>Stripe</strong> — payment processing. Stripe is PCI-DSS certified. See <a href="https://stripe.com/gb/privacy" target="_blank" rel="noopener">Stripe's Privacy Policy</a>.</li>
+      <li><strong>Vercel</strong> — website hosting and delivery. See <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel's Privacy Policy</a>.</li>
+      <li><strong>Meta (Facebook)</strong> — advertising measurement via Meta Pixel, only with your consent. See <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Meta's Privacy Policy</a>.</li>
+      <li><strong>Google Fonts</strong> — font delivery; Google may log your IP address. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</li>
+    </ul>
+
+    <p>We do not sell, rent or share your personal data with any third party for their own marketing purposes.</p>
+
+    <h2>6. Your Rights Under UK GDPR</h2>
+    <p>You have the following rights regarding your personal data:</p>
+    <ol>
+      <li><strong>Right of access</strong> — you can request a copy of the personal data we hold about you</li>
+      <li><strong>Right to rectification</strong> — you can ask us to correct inaccurate data</li>
+      <li><strong>Right to erasure ("right to be forgotten")</strong> — you can ask us to delete your data, subject to legal retention requirements</li>
+      <li><strong>Right to restriction of processing</strong> — you can ask us to limit how we use your data</li>
+      <li><strong>Right to data portability</strong> — you can request your data in a machine-readable format</li>
+      <li><strong>Right to object</strong> — you can object to processing based on legitimate interests</li>
+      <li><strong>Right to withdraw consent</strong> — where processing is based on consent (e.g. advertising cookies), you can withdraw consent at any time</li>
+    </ol>
+
+    <p>To exercise any of these rights, email us at <a href="mailto:hello@ghostscore.co.uk">hello@ghostscore.co.uk</a>. We will respond within 30 days.</p>
+
+    <h2>7. Cookies and Tracking</h2>
+    <p>We use the following cookies and tracking technologies:</p>
+    <ul>
+      <li><strong>Strictly necessary cookies</strong> — no personal data, used for basic site function (e.g. storing your cookie consent preference)</li>
+      <li><strong>Meta Pixel (advertising)</strong> — only loaded after you give explicit consent via our cookie consent banner. This tracks page views and purchase conversions to help us measure advertising effectiveness on Facebook/Instagram. You can withdraw consent at any time by clearing your browser cookies.</li>
+    </ul>
+
+    <p>You can manage your cookie preferences in your browser settings. Blocking all cookies may affect site functionality.</p>
+
+    <h2>8. Data Security</h2>
+    <p>We implement appropriate technical and organisational measures to protect your personal data, including:</p>
+    <ul>
+      <li>HTTPS encryption for all data in transit</li>
+      <li>Secure payment processing via Stripe (we never see or store card details)</li>
+      <li>Minimal data collection — we only request what is necessary for the audit</li>
+      <li>Prompt deletion of audit data after report delivery</li>
+    </ul>
+
+    <h2>9. International Transfers</h2>
+    <p>GhostScore is a UK-based business. Some of our processors (Stripe, Vercel, Meta) may process data in the United States or other countries outside the UK. Where this occurs, we ensure appropriate safeguards are in place (such as Standard Contractual Clauses or adequacy decisions) in accordance with UK GDPR requirements.</p>
+
+    <h2>10. Children's Privacy</h2>
+    <p>Our service is not directed at children under the age of 18. We do not knowingly collect personal data from children. If you believe we have inadvertently collected data from a child, please contact us immediately.</p>
+
+    <h2>11. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. The "Last updated" date at the top of this page will be updated accordingly. We encourage you to review this page periodically.</p>
+
+    <h2>12. How to Complain</h2>
+    <p>If you are unhappy with how we have handled your personal data, you have the right to lodge a complaint with the <strong>Information Commissioner's Office (ICO)</strong>, the UK's data protection supervisory authority:</p>
+    <ul>
+      <li>Website: <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a></li>
+      <li>Helpline: 0303 123 1113</li>
+      <li>Address: Information Commissioner's Office, Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF</li>
+    </ul>
+    <p>We would, however, appreciate the chance to resolve any issue directly with you before you approach the ICO. Please contact us first at <a href="mailto:hello@ghostscore.co.uk">hello@ghostscore.co.uk</a>.</p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 GhostScore UK Ltd — ICO Registered</span>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms</a>
+    <a href="/blog">Blog</a>
+    <a href="mailto:hello@ghostscore.co.uk">Contact</a>
+  </div>
+</footer>
+
+<script>
+  function toggleMobileMenu(btn) {
+    const menu = document.getElementById('mobile-menu');
+    const isOpen = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+    btn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+  }
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.querySelector('.nav-hamburger');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Open navigation menu');
+    }
+  });
+</script>
+</body>
+</html>

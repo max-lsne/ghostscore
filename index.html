@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GhostScore — Digital Exposure Audit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +20,7 @@
 <meta name="twitter:image" content="https://ghostscore.co.uk/og-image.png">
 <meta name="description" content="GhostScore audits 200+ sources — data brokers, AI models, search engines — and delivers your digital exposure score with a personalised removal guide. UK-based, GDPR compliant.">
 <link rel="canonical" href="https://ghostscore.co.uk">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
 <style>
   :root {
@@ -659,23 +660,121 @@
     font-size:10px; color:var(--muted); line-height:1.6;
     width:100%; padding-top:12px; border-top:1px solid var(--border);
   }
+
+  /* ── SKIP LINK ── */
+  .skip-link {
+    position:absolute; top:-100%; left:16px;
+    background:var(--gold); color:var(--bg); padding:8px 16px;
+    font-size:13px; font-weight:600; text-decoration:none; z-index:9999;
+    border-radius:4px; transition:top 0.2s;
+  }
+  .skip-link:focus { top:8px; }
+
+  /* ── HAMBURGER + MOBILE MENU ── */
+  .nav-hamburger {
+    display:none; flex-direction:column; gap:5px; cursor:pointer;
+    background:none; border:none; padding:4px; color:inherit;
+  }
+  .nav-hamburger span {
+    display:block; width:22px; height:2px; background:var(--dim); transition:all 0.25s;
+  }
+  .nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity:0; }
+  .nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  @media(max-width:767px) {
+    .nav-right .nav-link { display:none; }
+    .nav-hamburger { display:flex; }
+  }
+  .mobile-menu {
+    display:none; position:fixed; top:56px; left:0; right:0;
+    background:rgba(12,11,9,0.98); border-bottom:1px solid var(--border);
+    padding:20px var(--pad-x); z-index:99; flex-direction:column;
+  }
+  .mobile-menu.open { display:flex; }
+  .mobile-menu a {
+    display:block; padding:14px 0; font-size:14px; color:var(--dim);
+    border-bottom:1px solid var(--border); text-decoration:none; transition:color 0.2s;
+  }
+  .mobile-menu a:last-child { border-bottom:none; }
+  .mobile-menu a:hover { color:var(--gold); }
+
+  /* ── REDUCED MOTION ── */
+  @media(prefers-reduced-motion:reduce) {
+    *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+    nav, .mobile-menu { backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(12,11,9,0.98); }
+  }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ghostscore.co.uk/#org",
+      "name": "GhostScore UK",
+      "url": "https://ghostscore.co.uk",
+      "logo": "https://ghostscore.co.uk/og-image.png",
+      "description": "UK-based digital exposure audit service. We scan 200+ sources and deliver your personal GhostScore with a GDPR removal guide.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@ghostscore.co.uk",
+        "contactType": "customer support"
+      },
+      "areaServed": "GB",
+      "sameAs": []
+    },
+    {
+      "@type": "Product",
+      "@id": "https://ghostscore.co.uk/#product",
+      "name": "GhostScore Digital Exposure Report",
+      "description": "A comprehensive digital exposure audit covering 200+ sources including data brokers, search engines, AI models, breach databases, and public records. Includes a personalised GDPR removal guide.",
+      "brand": { "@id": "https://ghostscore.co.uk/#org" },
+      "url": "https://ghostscore.co.uk",
+      "offers": {
+        "@type": "Offer",
+        "price": "39.00",
+        "priceCurrency": "GBP",
+        "availability": "https://schema.org/InStock",
+        "deliveryLeadTime": {
+          "@type": "QuantitativeValue",
+          "value": "1",
+          "unitCode": "DAY"
+        }
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- NAV -->
-<nav>
+<nav aria-label="Main navigation">
   <div class="logo">GhostScore<span>®</span></div>
   <div class="nav-right">
     <a href="#how" class="nav-link">How It Works</a>
-    <a href="/blog.html" class="nav-link">Blog</a>
+    <a href="/blog" class="nav-link">Blog</a>
     <a href="#pricing" class="nav-link">Pricing</a>
     <a href="#" class="nav-btn" onclick="showForm();return false">Get Audit — £39</a>
+    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <a href="#how">How It Works</a>
+  <a href="/blog">Blog</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#" onclick="closeMobileMenu();showForm();return false">Get Audit — £39</a>
+</div>
+
 <!-- ═══════════ HERO ═══════════ -->
-<section class="hero-section">
+<section class="hero-section" id="main-content">
   <div class="wrap">
     <div class="hero-inner">
       <div class="hero-eyebrow">Digital Exposure Audit</div>
@@ -874,13 +973,13 @@
         <div class="overline">Intelligence Briefings</div>
         <h2 class="s-heading" style="margin-bottom:0">Privacy research &amp; guides</h2>
       </div>
-      <a href="/blog.html" class="blog-view-all">All articles</a>
+      <a href="/blog" class="blog-view-all">All articles</a>
     </div>
 
     <div class="blog-grid">
 
       <!-- Featured post -->
-      <a href="/blog.html#post1" class="blog-card featured">
+      <a href="/blog#post1" class="blog-card featured">
         <div class="blog-tag">Data Brokers</div>
         <div class="blog-title">The 47 websites selling your personal data right now — and how to get removed</div>
         <div class="blog-excerpt">Most people are surprised to learn their home address, salary estimate, and family members' names are publicly listed on dozens of sites without their knowledge. Here's exactly who has your data.</div>
@@ -893,7 +992,7 @@
       </a>
 
       <!-- Post 2 -->
-      <a href="/blog.html#post2" class="blog-card">
+      <a href="/blog#post2" class="blog-card">
         <div class="blog-tag">Methodology</div>
         <div class="blog-title">Inside a GhostScore audit: what we scan across 200+ sources</div>
         <div class="blog-meta">
@@ -905,7 +1004,7 @@
       </a>
 
       <!-- Post 3 -->
-      <a href="/blog.html#post3" class="blog-card">
+      <a href="/blog#post3" class="blog-card">
         <div class="blog-tag">Case Study</div>
         <div class="blog-title">"I had no idea I was this exposed" — a GhostScore audit in real life</div>
         <div class="blog-meta">
@@ -1087,7 +1186,7 @@
 
         <p class="form-legal">
           I confirm I am auditing my own identity.<br>
-          <a href="#">Terms of Service</a> · <a href="#">Privacy Policy</a><br>
+          <a href="/terms">Terms of Service</a> · <a href="/privacy">Privacy Policy</a><br>
           All data encrypted &amp; permanently deleted after delivery.
         </p>
       </form>
@@ -1099,10 +1198,10 @@
 <footer>
   <div class="footer-brand">GhostScore<span>®</span></div>
   <div class="footer-links">
-    <a href="#">Terms</a>
-    <a href="#">Privacy</a>
-    <a href="/blog.html">Blog</a>
-    <a href="#">Contact</a>
+    <a href="/terms">Terms</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/blog">Blog</a>
+    <a href="mailto:hello@ghostscore.co.uk">Contact</a>
   </div>
   <div class="footer-legal">
     © 2026 GhostScore Ltd · Registered in England &amp; Wales · ICO Registered · GDPR Compliant
@@ -1222,6 +1321,30 @@ document.getElementById('gf')?.addEventListener('submit', function(e){
     const stripeUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(data.email);
     window.location.href = stripeUrl;
   }, 500);
+});
+</script>
+
+<script>
+function toggleMobileMenu(btn) {
+  const menu = document.getElementById('mobile-menu');
+  const isOpen = menu.classList.toggle('open');
+  btn.setAttribute('aria-expanded', isOpen);
+  btn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+}
+function closeMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const btn = document.querySelector('.nav-hamburger');
+  if (menu) { menu.classList.remove('open'); }
+  if (btn) { btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-label', 'Open navigation menu'); }
+}
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('mobile-menu');
+  const btn = document.querySelector('.nav-hamburger');
+  if (menu && menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open navigation menu');
+  }
 });
 </script>
 </body>
