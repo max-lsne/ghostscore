@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1200px; height: 630px; background: #0c0b09; overflow: hidden; font-family: Georgia, serif; }
+.bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, #1a1508 0%, #0c0b09 60%);
+}
+.border-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #c8a849, transparent 60%);
+}
+.border-left {
+  position: absolute; top: 0; left: 0; bottom: 0; width: 1px;
+  background: linear-gradient(180deg, #c8a849 0%, transparent 80%);
+  opacity: 0.4;
+}
+.content {
+  position: relative; z-index: 10;
+  padding: 64px 80px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.top { display: flex; flex-direction: column; }
+.eyebrow {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: #c8a849;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  opacity: 0.8;
+}
+.headline {
+  font-size: 58px;
+  font-weight: 400;
+  color: #e8e0cc;
+  line-height: 1.15;
+  max-width: 680px;
+}
+.headline em {
+  font-style: italic;
+  color: #c8a849;
+}
+.sub {
+  margin-top: 24px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #6a6050;
+  font-weight: 300;
+  max-width: 560px;
+  line-height: 1.5;
+}
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  font-size: 22px;
+  color: #c8a849;
+  letter-spacing: 2px;
+}
+.brand span {
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: #6a6050;
+  margin-top: 4px;
+}
+.score-badge {
+  border: 1px solid rgba(200,168,73,0.3);
+  padding: 16px 28px;
+  text-align: center;
+}
+.score-badge .num {
+  font-size: 52px;
+  color: #c8a849;
+  line-height: 1;
+}
+.score-badge .label {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #6a6050;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+/* Decorative scan lines */
+.scan {
+  position: absolute;
+  right: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 300px;
+  opacity: 0.05;
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="border-top"></div>
+<div class="border-left"></div>
+<div class="content">
+  <div class="top">
+    <div class="eyebrow">ghostscore.co.uk · privacy intelligence</div>
+    <div class="headline">Know what the internet<br>knows about <em>you</em></div>
+    <div class="sub">200+ sources scanned. Your digital exposure score. Personalised removal guide. Delivered in 24 hours.</div>
+  </div>
+  <div class="bottom">
+    <div class="brand">
+      GhostScore
+      <span>UK · GDPR COMPLIANT</span>
+    </div>
+    <div class="score-badge">
+      <div class="num">£39</div>
+      <div class="label">one-time · full report</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
