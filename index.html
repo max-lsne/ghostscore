@@ -1296,9 +1296,15 @@ document.getElementById('gf')?.addEventListener('submit', function(e){
     if (value && ENTRY_IDS[key]) params.append(ENTRY_IDS[key], value);
   }
 
-navigator.sendBeacon(GOOGLE_FORM_URL, params);
 const stripeUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(data.email);
-window.location.href = stripeUrl;
+fetch(GOOGLE_FORM_URL, {
+  method: 'POST',
+  body: params,
+  mode: 'no-cors',
+  keepalive: true
+}).catch(function(){}).finally(function(){
+  window.location.href = stripeUrl;
+});
 });
 </script>
 
