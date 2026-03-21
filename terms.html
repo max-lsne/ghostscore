@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — GhostScore UK</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="64x64" href="/favicon-64.png">
+  <meta name="description" content="GhostScore UK Terms of Service — governing the use of our digital exposure audit service.">
+  <link rel="canonical" href="https://ghostscore.co.uk/terms">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0b09; --card: #14130f; --border: #252319;
+      --text: #f0ece4; --dim: #9e9787; --muted: #5e584c;
+      --gold: #c8a849; --gold-soft: rgba(200,168,73,0.07);
+      --gold-border: rgba(200,168,73,0.15);
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --pad-x: clamp(20px, 5vw, 80px);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:var(--sans); background:var(--bg); color:var(--text);
+      -webkit-font-smoothing:antialiased; line-height:1.7;
+    }
+    a { color:var(--gold); text-decoration:underline; text-underline-offset:2px; }
+    a:hover { color:#d4b454; }
+
+    nav {
+      position:fixed; top:0; width:100%; z-index:100;
+      padding:14px var(--pad-x);
+      background:rgba(12,11,9,0.92);
+      backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+      display:flex; justify-content:space-between; align-items:center;
+      border-bottom:1px solid var(--border);
+    }
+    .nav-logo {
+      font-family:var(--serif); font-size:17px; color:var(--gold);
+      text-decoration:none; display:flex; flex-direction:column; line-height:1.2;
+    }
+    .nav-logo-sub {
+      font-family:var(--mono); font-size:9px; color:var(--muted);
+      letter-spacing:0.18em; text-transform:uppercase; margin-top:1px;
+    }
+    .nav-back {
+      font-family:var(--mono); font-size:11px; color:var(--dim);
+      text-decoration:none; letter-spacing:0.05em;
+      display:flex; align-items:center; gap:6px; transition:color 0.2s;
+    }
+    .nav-back:hover { color:var(--gold); }
+    .nav-back::before { content:'←'; }
+
+    .page-wrap {
+      max-width:740px; margin:0 auto;
+      padding: 120px var(--pad-x) 80px;
+    }
+
+    .page-eyebrow {
+      font-family:var(--mono); font-size:10px; color:var(--gold);
+      letter-spacing:2.5px; text-transform:uppercase; margin-bottom:16px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .page-eyebrow::before { content:''; width:16px; height:1px; background:var(--gold); }
+
+    h1 {
+      font-family:var(--serif); font-size:clamp(32px, 5vw, 52px);
+      font-weight:400; line-height:1.1; letter-spacing:-1px;
+      margin-bottom:12px;
+    }
+    .page-meta {
+      font-family:var(--mono); font-size:11px; color:var(--muted);
+      letter-spacing:0.05em; margin-bottom:48px;
+      padding-bottom:32px; border-bottom:1px solid var(--border);
+    }
+
+    .toc {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:10px; padding:24px 28px; margin-bottom:48px;
+    }
+    .toc-title {
+      font-family:var(--mono); font-size:10px; color:var(--gold);
+      letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;
+    }
+    .toc ol { padding-left:20px; }
+    .toc li {
+      font-size:13px; color:var(--dim); padding:4px 0;
+    }
+    .toc a { color:var(--dim); text-decoration:none; }
+    .toc a:hover { color:var(--gold); }
+
+    h2 {
+      font-family:var(--serif); font-size:clamp(20px, 2.5vw, 28px);
+      font-weight:400; line-height:1.2; letter-spacing:-0.3px;
+      margin:48px 0 16px; color:var(--gold);
+      padding-top:16px;
+    }
+    h2:first-of-type { margin-top:0; }
+
+    p { font-size:15px; color:var(--dim); font-weight:300; line-height:1.8; margin-bottom:16px; }
+    p strong { color:var(--text); font-weight:500; }
+
+    ul, ol { padding-left:20px; margin-bottom:16px; }
+    li { font-size:15px; color:var(--dim); font-weight:300; line-height:1.8; padding:3px 0; }
+
+    .highlight-box {
+      background:var(--gold-soft); border:1px solid var(--gold-border);
+      border-radius:10px; padding:20px 24px; margin:24px 0;
+      font-size:14px; color:var(--dim); line-height:1.7; font-weight:300;
+    }
+    .highlight-box strong { color:var(--gold); }
+
+    .section-divider {
+      height:1px; background:var(--border); margin:48px 0;
+    }
+
+    footer {
+      padding:32px var(--pad-x); border-top:1px solid var(--border);
+      display:flex; flex-wrap:wrap; gap:12px;
+      justify-content:space-between; align-items:center;
+      max-width:740px; margin:0 auto;
+    }
+    .footer-brand { font-family:var(--serif); font-size:14px; color:var(--gold); }
+    footer nav-links { display:flex; gap:16px; }
+    footer a { font-size:11px; color:var(--muted); padding:4px 8px; text-decoration:underline; text-underline-offset:2px; }
+    footer a:hover { color:var(--dim); }
+    .footer-legal { font-size:10px; color:var(--muted); line-height:1.6; width:100%; padding-top:12px; border-top:1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    GhostScore
+    <span class="nav-logo-sub">UK · Privacy Intelligence</span>
+  </a>
+  <a href="/" class="nav-back">Back to home</a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-eyebrow">Legal</div>
+  <h1>Terms of Service</h1>
+  <div class="page-meta">Last updated: 1 March 2026 · GhostScore Ltd · Registered in England &amp; Wales</div>
+
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#about">About GhostScore</a></li>
+      <li><a href="#service">The Service</a></li>
+      <li><a href="#eligibility">Eligibility &amp; Permitted Use</a></li>
+      <li><a href="#payment">Payment &amp; Refunds</a></li>
+      <li><a href="#data">Your Data &amp; Privacy</a></li>
+      <li><a href="#delivery">Report Delivery</a></li>
+      <li><a href="#liability">Limitation of Liability</a></li>
+      <li><a href="#ip">Intellectual Property</a></li>
+      <li><a href="#prohibited">Prohibited Conduct</a></li>
+      <li><a href="#changes">Changes to These Terms</a></li>
+      <li><a href="#contact">Contact &amp; Governing Law</a></li>
+    </ol>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Plain English summary:</strong> GhostScore provides a one-time digital exposure audit. You must only audit yourself or someone who has explicitly authorised you. We deliver a confidential PDF report within 24 hours and delete all your data immediately after. Payment is £39, non-refundable unless we find fewer than 5 sources. We're not liable for third-party data or your decisions based on the report.
+  </div>
+
+  <h2 id="about">1. About GhostScore</h2>
+  <p>GhostScore Ltd ("GhostScore", "we", "us", "our") is a company registered in England and Wales. We provide digital exposure audit services to individuals in the United Kingdom and internationally.</p>
+  <p>By purchasing or using our service, you agree to these Terms of Service ("Terms"). If you do not agree, do not use the service.</p>
+
+  <h2 id="service">2. The Service</h2>
+  <p>GhostScore provides a <strong>Digital Exposure Audit</strong> — a manual research service in which we scan 200+ publicly accessible sources to identify where an individual's personal information is publicly visible online. This includes:</p>
+  <ul>
+    <li>Data broker and people-search websites</li>
+    <li>Search engine indexes (Google, Bing, DuckDuckGo)</li>
+    <li>Social media platforms (publicly accessible content only)</li>
+    <li>AI and large language model outputs</li>
+    <li>Data breach databases</li>
+    <li>UK public records (Companies House, Electoral Roll, court records)</li>
+    <li>Reverse image search results</li>
+    <li>Publicly accessible document metadata</li>
+  </ul>
+  <p>The service produces a confidential PDF report containing a GhostScore (0–100 exposure rating), a source-by-source breakdown, and step-by-step GDPR removal instructions including pre-written letter templates.</p>
+  <p>GhostScore is an <strong>information and guidance service only</strong>. We do not undertake removal on your behalf. We do not provide legal advice. Removal instructions are provided as guidance based on our research experience.</p>
+
+  <h2 id="eligibility">3. Eligibility &amp; Permitted Use</h2>
+  <p>You must be at least 18 years old to use the service.</p>
+  <p><strong>You may only request an audit for yourself</strong>, or for another individual who has provided you with explicit written consent to do so. By submitting an order, you confirm that:</p>
+  <ul>
+    <li>You are auditing your own identity, OR</li>
+    <li>You have obtained explicit consent from the individual being audited</li>
+    <li>You will not use the report to stalk, harass, or harm any individual</li>
+    <li>You will not share the report with unauthorised third parties</li>
+  </ul>
+  <p>GhostScore reserves the right to cancel any order and issue a full refund if we have reasonable grounds to believe the service is being misused.</p>
+
+  <h2 id="payment">4. Payment &amp; Refunds</h2>
+  <p>The service costs <strong>£39 (GBP)</strong>, payable in full at the time of order via Stripe. All payments are processed securely by Stripe Inc. GhostScore does not store payment card details.</p>
+  <p><strong>Refund policy:</strong> Due to the manual nature of the service, all sales are final once the report has been delivered. We offer a full refund only if:</p>
+  <ul>
+    <li>We find fewer than 5 sources in our audit, OR</li>
+    <li>We are unable to deliver the report within 48 hours of your order</li>
+  </ul>
+  <p>To request a refund, contact <a href="mailto:hello@ghostscore.co.uk">hello@ghostscore.co.uk</a> within 7 days of delivery. Approved refunds are processed within 5–10 business days to your original payment method.</p>
+
+  <h2 id="data">5. Your Data &amp; Privacy</h2>
+  <p>We take data minimisation and privacy seriously — it is the entire basis of our service.</p>
+  <p><strong>Data collection:</strong> We collect only the information you provide in your order form (name, email, and optional identifiers). This information is used solely to conduct your audit.</p>
+  <p><strong>Data retention:</strong> All personal data you provide is permanently deleted from our systems immediately after your report is delivered. We do not retain copies of your data, your report, or any research notes beyond delivery.</p>
+  <p><strong>Data sharing:</strong> We do not sell, share, or otherwise transfer your personal data to third parties. Your report is confidential and sent only to the email address you provide.</p>
+  <p>Our full Privacy Policy is available at <a href="/privacy">ghostscore.co.uk/privacy</a>. Our processing of personal data is conducted in accordance with UK GDPR and the Data Protection Act 2018.</p>
+
+  <h2 id="delivery">6. Report Delivery</h2>
+  <p>We aim to deliver your report within <strong>24 hours</strong> of receiving your order. In exceptional cases (high volume, complex searches), delivery may take up to 48 hours. If we cannot deliver within 48 hours, you are entitled to a full refund.</p>
+  <p>Reports are delivered as a PDF to the email address you provide at checkout. Please check your spam folder if you do not receive your report within the stated timeframe.</p>
+  <p>If your report does not arrive, contact <a href="mailto:hello@ghostscore.co.uk">hello@ghostscore.co.uk</a> and we will re-send.</p>
+
+  <h2 id="liability">7. Limitation of Liability</h2>
+  <p>GhostScore provides information based on publicly available sources at the time of audit. We do not guarantee:</p>
+  <ul>
+    <li>The completeness or accuracy of third-party data sources</li>
+    <li>That all sources of personal data will be identified</li>
+    <li>That removal requests will be honoured by third parties</li>
+    <li>That your data will not re-appear on sources after removal</li>
+  </ul>
+  <p>The report is provided for informational purposes. Any actions you take based on the report — including contacting data brokers, submitting GDPR requests, or engaging legal services — are undertaken at your own discretion and risk.</p>
+  <p>To the fullest extent permitted by law, GhostScore's total liability to you for any claim arising from these Terms or your use of the service shall not exceed the amount paid for your audit (£39).</p>
+  <p>Nothing in these Terms limits our liability for death or personal injury caused by negligence, fraud, or any other liability that cannot be excluded under English law.</p>
+
+  <h2 id="ip">8. Intellectual Property</h2>
+  <p>The GhostScore report delivered to you is for your personal use only. You may not reproduce, distribute, resell, or republish the report or any portion of it without our written consent.</p>
+  <p>The GhostScore name, logo, website, and methodology are the intellectual property of GhostScore Ltd. All rights reserved.</p>
+
+  <h2 id="prohibited">9. Prohibited Conduct</h2>
+  <p>You must not use the GhostScore service to:</p>
+  <ul>
+    <li>Audit any individual without their consent</li>
+    <li>Engage in stalking, harassment, or surveillance of any person</li>
+    <li>Facilitate identity theft, fraud, or any unlawful activity</li>
+    <li>Resell or commercially exploit the service or its outputs</li>
+    <li>Attempt to reverse-engineer, scrape, or copy our methodology</li>
+  </ul>
+  <p>Breach of these prohibitions may result in cancellation of your order without refund, and we reserve the right to report serious misuse to relevant authorities.</p>
+
+  <h2 id="changes">10. Changes to These Terms</h2>
+  <p>We may update these Terms from time to time. Where changes are material, we will update the "Last updated" date at the top of this page. Continued use of the service after changes constitutes acceptance of the updated Terms.</p>
+  <p>We recommend reviewing these Terms periodically.</p>
+
+  <h2 id="contact">11. Contact &amp; Governing Law</h2>
+  <p>For any questions about these Terms, please contact us at:</p>
+  <p>
+    <strong>GhostScore Ltd</strong><br>
+    Email: <a href="mailto:hello@ghostscore.co.uk">hello@ghostscore.co.uk</a>
+  </p>
+  <p>These Terms are governed by the laws of England and Wales. Any disputes shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+
+  <div class="section-divider"></div>
+  <p style="font-size:13px; color:var(--muted); text-align:center;">© 2026 GhostScore Ltd · Registered in England &amp; Wales · ICO Registered · GDPR Compliant</p>
+
+</div>
+
+<footer>
+  <div class="footer-brand">GhostScore®</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+    <a href="/terms">Terms</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/blog">Blog</a>
+    <a href="mailto:hello@ghostscore.co.uk">Contact</a>
+  </div>
+  <div class="footer-legal">© 2026 GhostScore Ltd · Registered in England &amp; Wales · ICO Registered · GDPR Compliant</div>
+</footer>
+
+</body>
+</html>
