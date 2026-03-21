@@ -8,6 +8,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<!-- FIX 1: Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="64x64" href="/favicon-64.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+
 <meta property="og:title" content="GhostScore UK — Know What the Internet Knows About You">
 <meta property="og:description" content="Data brokers, AI models, and search engines hold your personal data. GhostScore audits 200+ sources and shows you exactly what's exposed.">
 <meta property="og:image" content="https://ghostscore.co.uk/og-image.png">
@@ -38,7 +43,6 @@
     --serif: 'Instrument Serif', Georgia, serif;
     --sans: 'DM Sans', system-ui, sans-serif;
     --mono: 'JetBrains Mono', monospace;
-    /* Layout */
     --max: 1280px;
     --pad-x: clamp(20px, 5vw, 80px);
     --section-y: clamp(56px, 8vw, 100px);
@@ -54,7 +58,6 @@
   a { color:inherit; text-decoration:none; }
   img { display:block; max-width:100%; }
 
-  /* ── LAYOUT HELPERS ── */
   .wrap {
     max-width:var(--max);
     margin:0 auto;
@@ -71,8 +74,16 @@
     display:flex; justify-content:space-between; align-items:center;
     border-bottom:1px solid var(--border);
   }
-  .logo { font-family:var(--serif); font-size:17px; }
-  .logo span { color:var(--muted); }
+  /* FIX 2: Unified logo style — matches blog nav */
+  .logo {
+    font-family:var(--serif); font-size:17px;
+    color:var(--gold); text-decoration:none;
+    display:flex; flex-direction:column; line-height:1.2;
+  }
+  .logo-sub {
+    font-family:var(--mono); font-size:9px; color:var(--muted);
+    letter-spacing:0.18em; text-transform:uppercase; margin-top:1px;
+  }
   .nav-right { display:flex; align-items:center; gap:24px; }
   .nav-link {
     font-size:12px; color:var(--dim); letter-spacing:0.05em;
@@ -126,7 +137,6 @@
     background:radial-gradient(ellipse, rgba(200,168,73,0.04) 0%, transparent 65%);
     filter:blur(80px); pointer-events:none;
   }
-  /* Decorative large number */
   .hero-section::after {
     content:'74';
     position:absolute; right:var(--pad-x); top:50%; transform:translateY(-50%);
@@ -137,9 +147,7 @@
   }
   @media(min-width:900px) { .hero-section::after { display:block; } }
 
-  .hero-inner {
-    max-width:780px;
-  }
+  .hero-inner { max-width:780px; }
   .hero-eyebrow {
     font-family:var(--mono); font-size:10px; color:var(--gold);
     letter-spacing:2.5px; text-transform:uppercase; margin-bottom:20px;
@@ -187,9 +195,7 @@
     background:#d4b454; transform:translateY(-1px);
     box-shadow:0 8px 28px rgba(200,168,73,0.22);
   }
-  .cta-meta {
-    font-size:12px; color:var(--muted); line-height:1.5;
-  }
+  .cta-meta { font-size:12px; color:var(--muted); line-height:1.5; }
 
   .trust-strip {
     display:flex; flex-wrap:wrap; gap:10px 20px;
@@ -204,32 +210,18 @@
     border-radius:50%; opacity:0.6; flex-shrink:0;
   }
 
-  /* ── SOCIAL PROOF (replaces "As Featured On") ── */
-  .proof-section {
-    background:var(--card);
-  }
+  /* ── SOCIAL PROOF ── */
+  .proof-section { background:var(--card); }
   .proof-inner {
-    display:grid;
-    grid-template-columns:1fr;
-    gap:40px;
+    display:grid; grid-template-columns:1fr; gap:40px;
   }
   @media(min-width:860px) {
-    .proof-inner {
-      grid-template-columns:1fr 1fr;
-      gap:0;
-    }
+    .proof-inner { grid-template-columns:1fr 1fr; gap:0; }
   }
-  .proof-left {
-    padding-right:0;
-  }
+  .proof-left { padding-right:0; }
   @media(min-width:860px) {
-    .proof-left {
-      padding-right:60px;
-      border-right:1px solid var(--border);
-    }
-    .proof-right {
-      padding-left:60px;
-    }
+    .proof-left { padding-right:60px; border-right:1px solid var(--border); }
+    .proof-right { padding-left:60px; }
   }
   .proof-number {
     font-family:var(--serif);
@@ -237,29 +229,21 @@
     font-weight:400; line-height:1; letter-spacing:-2px;
     color:var(--gold); margin-bottom:8px;
   }
-  .proof-number sup {
-    font-size:0.4em; vertical-align:super; letter-spacing:0;
-  }
+  .proof-number sup { font-size:0.4em; vertical-align:super; letter-spacing:0; }
   .proof-headline {
     font-family:var(--serif);
     font-size:clamp(18px, 2.2vw, 26px);
-    font-weight:400; line-height:1.3;
-    margin-bottom:14px;
+    font-weight:400; line-height:1.3; margin-bottom:14px;
   }
   .proof-body {
     font-size:14px; color:var(--dim); font-weight:300;
     line-height:1.75; max-width:440px;
   }
   .proof-body em { color:var(--gold); font-style:italic; }
-  .proof-right {
-    display:flex; flex-direction:column; gap:20px;
-  }
+  .proof-right { display:flex; flex-direction:column; gap:20px; }
   .proof-card {
-    background:var(--bg);
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:20px 22px;
-    position:relative;
+    background:var(--bg); border:1px solid var(--border);
+    border-radius:10px; padding:20px 22px; position:relative;
   }
   .proof-card-head {
     font-family:var(--mono); font-size:9px;
@@ -272,90 +256,52 @@
     color:var(--text); line-height:1.8;
   }
   .redact {
-    display:inline-block;
-    background:var(--dim);
-    border-radius:2px;
-    color:transparent;
-    user-select:none;
-    font-size:11px;
-  }
-  .proof-stars {
-    color:var(--gold); font-size:12px; letter-spacing:2px;
-    margin-bottom:6px;
-  }
-  .proof-quote {
-    font-size:13px; color:var(--dim); font-style:italic;
-    line-height:1.65; font-weight:300;
+    display:inline-block; background:var(--dim);
+    border-radius:2px; color:transparent;
+    user-select:none; font-size:11px;
   }
 
   /* ── WHAT WE FIND ── */
   .threats-grid {
-    margin-top:36px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
+    margin-top:36px; display:grid;
+    grid-template-columns:1fr 1fr; gap:12px;
   }
-  @media(min-width:640px) {
-    .threats-grid { grid-template-columns:1fr 1fr 1fr; }
-  }
-  @media(min-width:1000px) {
-    .threats-grid { grid-template-columns:repeat(6, 1fr); }
-  }
+  @media(min-width:640px) { .threats-grid { grid-template-columns:1fr 1fr 1fr; } }
+  @media(min-width:1000px) { .threats-grid { grid-template-columns:repeat(6, 1fr); } }
   .threat-item {
     background:var(--card); border:1px solid var(--border);
-    border-radius:10px; padding:20px 18px;
-    transition:border-color 0.3s;
+    border-radius:10px; padding:20px 18px; transition:border-color 0.3s;
   }
   .threat-item:hover { border-color:var(--border-l); }
   .threat-item h3 {
     font-family:var(--serif); font-size:16px; font-weight:400;
     margin-bottom:5px; letter-spacing:-0.2px;
   }
-  .threat-item p {
-    font-size:12px; color:var(--muted); line-height:1.55; font-weight:300;
-  }
+  .threat-item p { font-size:12px; color:var(--muted); line-height:1.55; font-weight:300; }
 
   /* ── HOW IT WORKS ── */
   .steps-grid {
-    margin-top:36px;
-    display:grid;
-    grid-template-columns:1fr;
-    gap:24px;
+    margin-top:36px; display:grid; grid-template-columns:1fr; gap:24px;
   }
-  @media(min-width:640px) {
-    .steps-grid { grid-template-columns:1fr 1fr 1fr; }
-  }
-  .step {
-    display:flex; flex-direction:column; gap:12px;
-  }
+  @media(min-width:640px) { .steps-grid { grid-template-columns:1fr 1fr 1fr; } }
+  .step { display:flex; flex-direction:column; gap:12px; }
   .step-n {
     width:36px; height:36px; flex-shrink:0;
     display:flex; align-items:center; justify-content:center;
     font-family:var(--mono); font-size:13px; font-weight:500;
-    color:var(--gold);
-    border:1px solid var(--border); border-radius:8px;
-    background:var(--card);
+    color:var(--gold); border:1px solid var(--border); border-radius:8px; background:var(--card);
   }
-  .step h3 {
-    font-family:var(--serif); font-size:18px; font-weight:400;
-    letter-spacing:-0.2px;
-  }
+  .step h3 { font-family:var(--serif); font-size:18px; font-weight:400; letter-spacing:-0.2px; }
   .step p { font-size:13px; color:var(--dim); font-weight:300; line-height:1.65; }
 
   /* ── REPORT PREVIEW ── */
   .preview-inner {
-    display:grid;
-    grid-template-columns:1fr;
-    gap:40px;
-    align-items:center;
+    display:grid; grid-template-columns:1fr; gap:40px; align-items:center;
   }
-  @media(min-width:860px) {
-    .preview-inner { grid-template-columns:1fr 1fr; gap:60px; }
-  }
+  @media(min-width:860px) { .preview-inner { grid-template-columns:1fr 1fr; gap:60px; } }
   .report-mock {
     background:var(--card); border:1px solid var(--border);
-    border-radius:12px; padding:28px 24px;
-    position:relative;
+    border-radius:12px; padding:28px 24px; position:relative;
   }
   .report-mock::before {
     content:'SAMPLE'; position:absolute; top:-9px; left:20px;
@@ -396,24 +342,15 @@
     font-family:var(--mono); font-size:10px;
     letter-spacing:2px; text-transform:uppercase;
     color:var(--gold); white-space:nowrap;
-    display:flex; align-items:center; gap:6px;
-    transition:gap 0.2s;
+    display:flex; align-items:center; gap:6px; transition:gap 0.2s;
   }
   .blog-view-all:hover { gap:10px; }
   .blog-view-all::after { content:'→'; }
-
   .blog-grid {
-    display:grid;
-    grid-template-columns:1fr;
-    gap:16px;
+    display:grid; grid-template-columns:1fr; gap:16px;
   }
-  @media(min-width:640px) {
-    .blog-grid { grid-template-columns:1fr 1fr; }
-  }
-  @media(min-width:960px) {
-    .blog-grid { grid-template-columns:2fr 1fr 1fr; }
-  }
-
+  @media(min-width:640px) { .blog-grid { grid-template-columns:1fr 1fr; } }
+  @media(min-width:960px) { .blog-grid { grid-template-columns:2fr 1fr 1fr; } }
   .blog-card {
     background:var(--card); border:1px solid var(--border);
     border-radius:12px; padding:28px 24px;
@@ -424,69 +361,43 @@
   .blog-card::before {
     content:''; position:absolute; top:0; left:0; right:0; height:1px;
     background:linear-gradient(90deg, var(--gold), transparent);
-    opacity:0;
-    transition:opacity 0.3s;
+    opacity:0; transition:opacity 0.3s;
   }
   .blog-card:hover { border-color:var(--border-l); }
   .blog-card:hover::before { opacity:1; }
   .blog-card:hover .blog-arrow { transform:translateX(4px); }
-
-  .blog-card.featured {
-    /* First card is bigger on large screens — handled in grid span */
-  }
-  @media(min-width:960px) {
-    .blog-card.featured { grid-row:span 1; }
-  }
-
   .blog-tag {
     font-family:var(--mono); font-size:9px;
     letter-spacing:2px; text-transform:uppercase;
     color:var(--gold); display:flex; align-items:center; gap:6px;
   }
   .blog-tag::before { content:''; width:12px; height:1px; background:var(--gold); }
-
   .blog-title {
     font-family:var(--serif); font-size:clamp(16px, 1.8vw, 20px);
-    font-weight:400; line-height:1.3; letter-spacing:-0.2px;
-    flex:1;
+    font-weight:400; line-height:1.3; letter-spacing:-0.2px; flex:1;
   }
-  .blog-card.featured .blog-title {
-    font-size:clamp(18px, 2.2vw, 24px);
-  }
-
+  .blog-card.featured .blog-title { font-size:clamp(18px, 2.2vw, 24px); }
   .blog-excerpt {
     font-size:13px; color:var(--muted); line-height:1.65;
     font-weight:300; display:none;
   }
   .blog-card.featured .blog-excerpt { display:block; }
-
   .blog-meta {
     display:flex; align-items:center; gap:10px;
     font-family:var(--mono); font-size:9px;
     letter-spacing:0.08em; color:var(--muted);
   }
   .blog-meta-dot { width:2px; height:2px; background:var(--muted); border-radius:50%; }
-
-  .blog-arrow {
-    color:var(--gold); font-size:12px;
-    align-self:flex-end;
-    transition:transform 0.2s;
-  }
+  .blog-arrow { color:var(--gold); font-size:12px; align-self:flex-end; transition:transform 0.2s; }
 
   /* ── PRICING ── */
   .price-inner {
-    display:grid;
-    grid-template-columns:1fr;
-    gap:40px;
-    align-items:start;
+    display:grid; grid-template-columns:1fr; gap:40px; align-items:start;
   }
-  @media(min-width:900px) {
-    .price-inner { grid-template-columns:1fr 1fr; gap:60px; }
-  }
+  @media(min-width:900px) { .price-inner { grid-template-columns:1fr 1fr; gap:60px; } }
   .price-card {
     background:var(--card); border:1px solid var(--border);
-    border-radius:14px; padding:36px 32px;
-    position:relative; overflow:hidden;
+    border-radius:14px; padding:36px 32px; position:relative; overflow:hidden;
   }
   .price-card::before {
     content:''; position:absolute; top:0; left:0; right:0;
@@ -509,8 +420,7 @@
   .price-badge {
     padding:6px 14px; background:var(--gold-soft);
     border:1px solid var(--gold-border); border-radius:100px;
-    font-size:11px; color:var(--gold); font-weight:500;
-    white-space:nowrap; flex-shrink:0;
+    font-size:11px; color:var(--gold); font-weight:500; white-space:nowrap; flex-shrink:0;
   }
   .price-list { list-style:none; margin-bottom:28px; }
   .price-list li {
@@ -532,12 +442,10 @@
     box-shadow:0 8px 28px rgba(200,168,73,0.22);
   }
   .price-foot {
-    display:flex; flex-wrap:wrap; gap:10px 16px;
-    margin-top:16px;
+    display:flex; flex-wrap:wrap; gap:10px 16px; margin-top:16px;
   }
   .price-foot span {
-    font-size:10px; color:var(--muted);
-    display:flex; align-items:center; gap:4px;
+    font-size:10px; color:var(--muted); display:flex; align-items:center; gap:4px;
   }
   .pay-logos {
     display:flex; gap:8px; margin-top:18px;
@@ -547,37 +455,24 @@
     font-family:var(--mono); font-size:10px; color:var(--muted);
     padding:4px 10px; border:1px solid var(--border); border-radius:4px;
   }
-  .price-side {
-    display:flex; flex-direction:column; gap:24px;
-  }
+  .price-side { display:flex; flex-direction:column; gap:24px; }
   .price-side-card {
-    background:var(--card); border:1px solid var(--border);
-    border-radius:12px; padding:24px;
+    background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px;
   }
   .price-side-card h4 {
     font-family:var(--serif); font-size:17px; font-weight:400;
     margin-bottom:10px; letter-spacing:-0.2px;
   }
-  .price-side-card p {
-    font-size:13px; color:var(--dim); font-weight:300; line-height:1.65;
-  }
+  .price-side-card p { font-size:13px; color:var(--dim); font-weight:300; line-height:1.65; }
 
   /* ── FORM ── */
-  .form-section {
-    display:none;
-    border-top:1px solid var(--border);
-  }
-  .form-inner {
-    max-width:560px; margin:0 auto;
-  }
+  .form-section { display:none; border-top:1px solid var(--border); }
+  .form-inner { max-width:560px; margin:0 auto; }
   .form-section h2 {
     font-family:var(--serif); font-size:clamp(22px, 3vw, 32px);
     font-weight:400; margin-bottom:8px; letter-spacing:-0.3px;
   }
-  .form-desc {
-    font-size:13px; color:var(--dim); margin-bottom:28px;
-    font-weight:300; line-height:1.6;
-  }
+  .form-desc { font-size:13px; color:var(--dim); margin-bottom:28px; font-weight:300; line-height:1.6; }
   .form-note {
     background:var(--gold-soft); border:1px solid var(--gold-border);
     border-radius:10px; padding:14px 18px; margin-bottom:28px;
@@ -585,27 +480,19 @@
   }
   .form-note strong { color:var(--gold); font-weight:500; }
   .fg { margin-bottom:16px; }
-  .fg label {
-    display:block; font-size:12px; font-weight:500;
-    color:var(--dim); margin-bottom:5px;
-  }
+  .fg label { display:block; font-size:12px; font-weight:500; color:var(--dim); margin-bottom:5px; }
   .fg label .r { color:var(--gold); }
-  .fg label .acc {
-    font-family:var(--mono); font-size:9px; color:var(--muted); margin-left:4px;
-  }
+  .fg label .acc { font-family:var(--mono); font-size:9px; color:var(--muted); margin-left:4px; }
   .fg input, .fg select, .fg textarea {
     width:100%; padding:12px 14px;
     background:var(--card); border:1px solid var(--border);
     border-radius:8px; color:var(--text); font-family:var(--sans);
-    font-size:14px; outline:none; transition:border 0.2s;
-    -webkit-appearance:none;
+    font-size:14px; outline:none; transition:border 0.2s; -webkit-appearance:none;
   }
   .fg textarea { resize:vertical; min-height:80px; line-height:1.5; }
   .fg input:focus, .fg select:focus, .fg textarea:focus { border-color:var(--gold); }
   .fg input::placeholder, .fg textarea::placeholder { color:var(--muted); }
-  @media(max-width:600px) {
-    .fg input, .fg select, .fg textarea { font-size:16px; }
-  }
+  @media(max-width:600px) { .fg input, .fg select, .fg textarea { font-size:16px; } }
   .fg-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   @media(max-width:480px) { .fg-row { grid-template-columns:1fr; } }
   .form-div {
@@ -613,9 +500,7 @@
     margin:28px 0; font-family:var(--mono); font-size:9px;
     color:var(--muted); letter-spacing:2px; text-transform:uppercase;
   }
-  .form-div::before, .form-div::after {
-    content:''; flex:1; height:1px; background:var(--border);
-  }
+  .form-div::before, .form-div::after { content:''; flex:1; height:1px; background:var(--border); }
   .form-submit {
     width:100%; padding:17px; background:var(--gold); color:var(--bg);
     font-family:var(--sans); font-size:15px; font-weight:600;
@@ -627,12 +512,10 @@
     box-shadow:0 8px 28px rgba(200,168,73,0.22);
   }
   .form-legal {
-    text-align:center; margin-top:14px; font-size:10px;
-    color:var(--muted); line-height:1.7;
+    text-align:center; margin-top:14px; font-size:10px; color:var(--muted); line-height:1.7;
   }
   .form-legal a {
-    color:var(--dim); text-decoration:underline; text-underline-offset:2px;
-    margin:0 3px;
+    color:var(--dim); text-decoration:underline; text-underline-offset:2px; margin:0 3px;
   }
   #cnWarn {
     display:none; padding:10px 14px; margin-bottom:14px;
@@ -646,11 +529,9 @@
     display:flex; flex-wrap:wrap; gap:12px;
     justify-content:space-between; align-items:center;
   }
-  .footer-brand { font-family:var(--serif); font-size:14px; }
+  .footer-brand { font-family:var(--serif); font-size:14px; color:var(--gold); }
   .footer-brand span { color:var(--muted); }
-  .footer-links {
-    display:flex; gap:6px; flex-wrap:wrap;
-  }
+  .footer-links { display:flex; gap:6px; flex-wrap:wrap; }
   footer a {
     font-size:10px; color:var(--muted); padding:4px 8px;
     text-decoration:underline; text-underline-offset:2px;
@@ -675,9 +556,7 @@
     display:none; flex-direction:column; gap:5px; cursor:pointer;
     background:none; border:none; padding:4px; color:inherit;
   }
-  .nav-hamburger span {
-    display:block; width:22px; height:2px; background:var(--dim); transition:all 0.25s;
-  }
+  .nav-hamburger span { display:block; width:22px; height:2px; background:var(--dim); transition:all 0.25s; }
   .nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
   .nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity:0; }
   .nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
@@ -698,7 +577,6 @@
   .mobile-menu a:last-child { border-bottom:none; }
   .mobile-menu a:hover { color:var(--gold); }
 
-  /* ── REDUCED MOTION ── */
   @media(prefers-reduced-motion:reduce) {
     *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
     nav, .mobile-menu { backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(12,11,9,0.98); }
@@ -714,15 +592,14 @@
       "@id": "https://ghostscore.co.uk/#org",
       "name": "GhostScore UK",
       "url": "https://ghostscore.co.uk",
-      "logo": "https://ghostscore.co.uk/og-image.png",
+      "logo": "https://ghostscore.co.uk/favicon-192.png",
       "description": "UK-based digital exposure audit service. We scan 200+ sources and deliver your personal GhostScore with a GDPR removal guide.",
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "hello@ghostscore.co.uk",
         "contactType": "customer support"
       },
-      "areaServed": "GB",
-      "sameAs": []
+      "areaServed": "GB"
     },
     {
       "@type": "Product",
@@ -735,12 +612,7 @@
         "@type": "Offer",
         "price": "39.00",
         "priceCurrency": "GBP",
-        "availability": "https://schema.org/InStock",
-        "deliveryLeadTime": {
-          "@type": "QuantitativeValue",
-          "value": "1",
-          "unitCode": "DAY"
-        }
+        "availability": "https://schema.org/InStock"
       }
     }
   ]
@@ -751,9 +623,12 @@
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- NAV -->
+<!-- FIX 2: NAV — unified logo with sub-label matching blog style -->
 <nav aria-label="Main navigation">
-  <div class="logo">GhostScore<span>®</span></div>
+  <a href="/" class="logo">
+    GhostScore
+    <span class="logo-sub">UK · Privacy Intelligence</span>
+  </a>
   <div class="nav-right">
     <a href="#how" class="nav-link">How It Works</a>
     <a href="/blog" class="nav-link">Blog</a>
@@ -811,7 +686,6 @@
 <section class="section proof-section">
   <div class="wrap">
     <div class="proof-inner">
-
       <div class="proof-left">
         <div class="overline">Client Satisfaction</div>
         <div class="proof-number">100<sup>+</sup></div>
@@ -822,9 +696,7 @@
           disappear from the internet. Leaving a public testimonial would rather defeat the purpose.
         </p>
       </div>
-
       <div class="proof-right">
-
         <div class="proof-card">
           <div class="proof-card-head">
             <span>Verified Client · London</span>
@@ -837,7 +709,6 @@
             of them in 3 weeks. Worth every penny."
           </div>
         </div>
-
         <div class="proof-card">
           <div class="proof-card-head">
             <span>Verified Client · Manchester</span>
@@ -849,7 +720,6 @@
             had my salary listed. Report was clear, removal was straightforward."
           </div>
         </div>
-
         <div class="proof-card">
           <div class="proof-card-head">
             <span>Verified Client · Edinburgh</span>
@@ -862,7 +732,6 @@
             could do that. Great service."
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -874,32 +743,13 @@
     <div class="overline">What We Find</div>
     <h2 class="s-heading">You're more exposed than you think</h2>
     <p class="s-desc">Every post, tag, and comment is indexed, aggregated, and now ingested by AI. Here's where your data is leaking.</p>
-
     <div class="threats-grid">
-      <div class="threat-item">
-        <h3>AI Models</h3>
-        <p>LLMs have ingested your public posts and profiles into training data.</p>
-      </div>
-      <div class="threat-item">
-        <h3>Data Brokers</h3>
-        <p>Your address, phone, and income listed on broker sites without consent.</p>
-      </div>
-      <div class="threat-item">
-        <h3>Search Engines</h3>
-        <p>Google caches old posts, photos, and pages you forgot exist.</p>
-      </div>
-      <div class="threat-item">
-        <h3>Breaches</h3>
-        <p>Your email and passwords are likely in multiple leaked databases.</p>
-      </div>
-      <div class="threat-item">
-        <h3>Social Media</h3>
-        <p>Tagged photos, check-ins, and public profiles reveal daily habits.</p>
-      </div>
-      <div class="threat-item">
-        <h3>Public Records</h3>
-        <p>Court filings, Companies House, and property records — all indexed.</p>
-      </div>
+      <div class="threat-item"><h3>AI Models</h3><p>LLMs have ingested your public posts and profiles into training data.</p></div>
+      <div class="threat-item"><h3>Data Brokers</h3><p>Your address, phone, and income listed on broker sites without consent.</p></div>
+      <div class="threat-item"><h3>Search Engines</h3><p>Google caches old posts, photos, and pages you forgot exist.</p></div>
+      <div class="threat-item"><h3>Breaches</h3><p>Your email and passwords are likely in multiple leaked databases.</p></div>
+      <div class="threat-item"><h3>Social Media</h3><p>Tagged photos, check-ins, and public profiles reveal daily habits.</p></div>
+      <div class="threat-item"><h3>Public Records</h3><p>Court filings, Companies House, and property records — all indexed.</p></div>
     </div>
   </div>
 </section>
@@ -909,7 +759,6 @@
   <div class="wrap">
     <div class="overline">How It Works</div>
     <h2 class="s-heading">Three steps. 24 hours.</h2>
-
     <div class="steps-grid">
       <div class="step">
         <div class="step-n">01</div>
@@ -975,46 +824,26 @@
       </div>
       <a href="/blog" class="blog-view-all">All articles</a>
     </div>
-
     <div class="blog-grid">
-
-      <!-- Featured post -->
       <a href="/blog#post1" class="blog-card featured">
         <div class="blog-tag">Data Brokers</div>
         <div class="blog-title">The 47 websites selling your personal data right now — and how to get removed</div>
         <div class="blog-excerpt">Most people are surprised to learn their home address, salary estimate, and family members' names are publicly listed on dozens of sites without their knowledge. Here's exactly who has your data.</div>
-        <div class="blog-meta">
-          <span>5 Jan 2025</span>
-          <div class="blog-meta-dot"></div>
-          <span>8 min</span>
-        </div>
+        <div class="blog-meta"><span>5 Jan 2025</span><div class="blog-meta-dot"></div><span>8 min</span></div>
         <div class="blog-arrow">→</div>
       </a>
-
-      <!-- Post 2 -->
       <a href="/blog#post2" class="blog-card">
         <div class="blog-tag">Methodology</div>
         <div class="blog-title">Inside a GhostScore audit: what we scan across 200+ sources</div>
-        <div class="blog-meta">
-          <span>12 Jan 2025</span>
-          <div class="blog-meta-dot"></div>
-          <span>5 min</span>
-        </div>
+        <div class="blog-meta"><span>12 Jan 2025</span><div class="blog-meta-dot"></div><span>5 min</span></div>
         <div class="blog-arrow">→</div>
       </a>
-
-      <!-- Post 3 -->
       <a href="/blog#post3" class="blog-card">
         <div class="blog-tag">Case Study</div>
         <div class="blog-title">"I had no idea I was this exposed" — a GhostScore audit in real life</div>
-        <div class="blog-meta">
-          <span>19 Jan 2025</span>
-          <div class="blog-meta-dot"></div>
-          <span>6 min</span>
-        </div>
+        <div class="blog-meta"><span>19 Jan 2025</span><div class="blog-meta-dot"></div><span>6 min</span></div>
         <div class="blog-arrow">→</div>
       </a>
-
     </div>
   </div>
 </section>
@@ -1024,9 +853,7 @@
   <div class="wrap">
     <div class="overline">Pricing</div>
     <h2 class="s-heading">One audit. One price.</h2>
-
     <div class="price-inner" style="margin-top:36px">
-
       <div class="price-card">
         <div class="price-top">
           <div>
@@ -1059,7 +886,6 @@
           <span class="pay-logo">Stripe</span>
         </div>
       </div>
-
       <div class="price-side">
         <div class="price-side-card">
           <h4>Why £39?</h4>
@@ -1067,14 +893,13 @@
         </div>
         <div class="price-side-card">
           <h4>What if my name is common?</h4>
-          <p>Common names (John Smith, etc.) produce more noise. We use the optional fields — employer, social handles, DOB — to filter accurately. The more you give us, the sharper the report.</p>
+          <p>Common names produce more noise. We use the optional fields — employer, social handles, DOB — to filter accurately. The more you give us, the sharper the report.</p>
         </div>
         <div class="price-side-card">
           <h4>When do you delete my data?</h4>
           <p>Immediately after delivering your report. We don't retain, sell, or use your information for anything other than producing your audit. Zero-retention is the entire point.</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -1085,20 +910,12 @@
     <div class="form-inner">
       <h2>Tell us who to audit</h2>
       <p class="form-desc">More detail = more thorough report. All data encrypted and deleted after delivery.</p>
-
       <div class="form-note">
         <strong>Why do we ask for this?</strong> We're searching for <em>you</em> across 200+ sources. Without sufficient identifiers, results may include people with similar names. Optional fields dramatically improve accuracy.
       </div>
-
       <form id="gf">
-        <div class="fg">
-          <label>Full Name <span class="r">*</span></label>
-          <input type="text" required placeholder="As it appears publicly" id="fn">
-        </div>
-        <div class="fg">
-          <label>Email <span class="r">*</span></label>
-          <input type="email" required placeholder="Report delivered here" id="em">
-        </div>
+        <div class="fg"><label>Full Name <span class="r">*</span></label><input type="text" required placeholder="As it appears publicly" id="fn"></div>
+        <div class="fg"><label>Email <span class="r">*</span></label><input type="email" required placeholder="Report delivered here" id="em"></div>
         <div class="fg-row">
           <div class="fg">
             <label>Country <span class="r">*</span></label>
@@ -1113,77 +930,32 @@
               <option value="OTHER">Other</option>
             </select>
           </div>
-          <div class="fg">
-            <label>City <span class="r">*</span></label>
-            <input type="text" required placeholder="Current city" id="ci">
-          </div>
+          <div class="fg"><label>City <span class="r">*</span></label><input type="text" required placeholder="Current city" id="ci"></div>
         </div>
-
         <div class="form-div">Recommended for accuracy</div>
-
         <div class="fg-row">
-          <div class="fg">
-            <label>Date of Birth <span class="acc">+40%</span></label>
-            <input type="date" id="dob">
-          </div>
-          <div class="fg">
-            <label>Phone <span class="acc">+25%</span></label>
-            <input type="tel" placeholder="+44 7700 900000" id="ph">
-          </div>
+          <div class="fg"><label>Date of Birth <span class="acc">+40%</span></label><input type="date" id="dob"></div>
+          <div class="fg"><label>Phone <span class="acc">+25%</span></label><input type="tel" placeholder="+44 7700 900000" id="ph"></div>
         </div>
-        <div class="fg">
-          <label>Employer <span class="acc">+20%</span></label>
-          <input type="text" placeholder="Current or most recent" id="emp">
-        </div>
-        <div class="fg">
-          <label>Previous Names <span class="acc">+15%</span></label>
-          <input type="text" placeholder="Maiden name or former names" id="prev">
-        </div>
-
+        <div class="fg"><label>Employer <span class="acc">+20%</span></label><input type="text" placeholder="Current or most recent" id="emp"></div>
+        <div class="fg"><label>Previous Names <span class="acc">+15%</span></label><input type="text" placeholder="Maiden name or former names" id="prev"></div>
         <div class="form-div">Social accounts</div>
-
         <div class="fg-row">
-          <div class="fg">
-            <label>LinkedIn <span class="acc">+30%</span></label>
-            <input type="text" placeholder="linkedin.com/in/yourname" id="linkedin">
-          </div>
-          <div class="fg">
-            <label>Instagram <span class="acc">+20%</span></label>
-            <input type="text" placeholder="@handle" id="instagram">
-          </div>
+          <div class="fg"><label>LinkedIn <span class="acc">+30%</span></label><input type="text" placeholder="linkedin.com/in/yourname" id="linkedin"></div>
+          <div class="fg"><label>Instagram <span class="acc">+20%</span></label><input type="text" placeholder="@handle" id="instagram"></div>
         </div>
         <div class="fg-row">
-          <div class="fg">
-            <label>Facebook <span class="acc">+20%</span></label>
-            <input type="text" placeholder="Profile URL or name" id="facebook">
-          </div>
-          <div class="fg">
-            <label>X / Twitter <span class="acc">+20%</span></label>
-            <input type="text" placeholder="@handle" id="twitter">
-          </div>
+          <div class="fg"><label>Facebook <span class="acc">+20%</span></label><input type="text" placeholder="Profile URL or name" id="facebook"></div>
+          <div class="fg"><label>X / Twitter <span class="acc">+20%</span></label><input type="text" placeholder="@handle" id="twitter"></div>
         </div>
         <div class="fg-row">
-          <div class="fg">
-            <label>TikTok <span class="acc">+15%</span></label>
-            <input type="text" placeholder="@handle" id="tiktok">
-          </div>
-          <div class="fg">
-            <label>Reddit <span class="acc">+15%</span></label>
-            <input type="text" placeholder="u/username" id="reddit">
-          </div>
+          <div class="fg"><label>TikTok <span class="acc">+15%</span></label><input type="text" placeholder="@handle" id="tiktok"></div>
+          <div class="fg"><label>Reddit <span class="acc">+15%</span></label><input type="text" placeholder="u/username" id="reddit"></div>
         </div>
-
         <div class="form-div">Anything else</div>
-
-        <div class="fg">
-          <label>Additional notes <span class="acc">Helpful</span></label>
-          <textarea id="notes" placeholder="Any other usernames, websites, old email addresses, or specific concerns you'd like us to investigate."></textarea>
-        </div>
-
+        <div class="fg"><label>Additional notes <span class="acc">Helpful</span></label><textarea id="notes" placeholder="Any other usernames, websites, old email addresses, or specific concerns."></textarea></div>
         <div id="cnWarn">⚠ Common names may reduce accuracy. Adding optional fields above helps significantly.</div>
-
         <button type="submit" class="form-submit">Submit &amp; Pay £39 →</button>
-
         <p class="form-legal">
           I confirm I am auditing my own identity.<br>
           <a href="/terms">Terms of Service</a> · <a href="/privacy">Privacy Policy</a><br>
@@ -1208,7 +980,7 @@
   </div>
 </footer>
 
-<!-- ✅ Meta Pixel Base Code — GhostScore Pixel ID: 1448934826913683 -->
+<!-- Meta Pixel -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -1221,94 +993,50 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '1448934826913683');
 fbq('track', 'PageView');
 </script>
-<noscript>
-  <img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1448934826913683&ev=PageView&noscript=1"/>
-</noscript>
-<!-- End Meta Pixel Base Code -->
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1448934826913683&ev=PageView&noscript=1"/></noscript>
 
 <script>
 function showForm(){
   const f = document.getElementById('form');
   f.style.display = 'block';
-  // ✅ Fire InitiateCheckout when form is revealed
   if(typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
   setTimeout(() => f.scrollIntoView({behavior:'smooth', block:'start'}), 50);
 }
-
-// Common name warning
 const cn = ['john smith','james smith','david jones','michael johnson','robert williams','mohammed ahmed','ali khan'];
 document.getElementById('fn')?.addEventListener('input', function(e){
   const n = e.target.value.toLowerCase().trim();
   document.getElementById('cnWarn').style.display =
     cn.some(c => n.includes(c) || c.includes(n)) && n.length > 5 ? 'block' : 'none';
 });
-
-// FORM SUBMIT → Google Form + Stripe redirect
 document.getElementById('gf')?.addEventListener('submit', function(e){
   e.preventDefault();
-
-  // ============================================
-  // REPLACE THESE WITH YOUR ACTUAL VALUES
-  // ============================================
   const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc9R_Nko0ViuRYUP2dKtSs_VaaWV8fZaMCoYj84xRCpZu_kKQ/formResponse';
   const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/00w28s5Fv0qP4kR8l5g7e00';
-
   const ENTRY_IDS = {
-    fullName:  'entry.1887475163',
-    email:     'entry.940650320',
-    country:   'entry.77926392',
-    city:      'entry.336209181',
-    dob:       'entry.1787684943',
-    phone:     'entry.1344841166',
-    employer:  'entry.2097580464',
-    prevNames: 'entry.2087741267',
-    linkedin:  'entry.151008257',
-    instagram: 'entry.1653181095',
-    facebook:  'entry.1763774207',
-    twitter:   'entry.2139898639',
-    tiktok:    'entry.1288114119',
-    reddit:    'entry.1925528909',
-    notes:     'entry.1574667641',
+    fullName:'entry.1887475163',email:'entry.940650320',country:'entry.77926392',
+    city:'entry.336209181',dob:'entry.1787684943',phone:'entry.1344841166',
+    employer:'entry.2097580464',prevNames:'entry.2087741267',linkedin:'entry.151008257',
+    instagram:'entry.1653181095',facebook:'entry.1763774207',twitter:'entry.2139898639',
+    tiktok:'entry.1288114119',reddit:'entry.1925528909',notes:'entry.1574667641',
   };
-  // ============================================
-
   const data = {
-    fullName:  document.getElementById('fn').value,
-    email:     document.getElementById('em').value,
-    country:   document.getElementById('co').value,
-    city:      document.getElementById('ci').value,
-    dob:       document.getElementById('dob').value,
-    phone:     document.getElementById('ph').value,
-    employer:  document.getElementById('emp').value,
-    prevNames: document.getElementById('prev').value,
-    linkedin:  document.getElementById('linkedin').value,
-    instagram: document.getElementById('instagram').value,
-    facebook:  document.getElementById('facebook').value,
-    twitter:   document.getElementById('twitter').value,
-    tiktok:    document.getElementById('tiktok').value,
-    reddit:    document.getElementById('reddit').value,
-    notes:     document.getElementById('notes').value,
+    fullName:document.getElementById('fn').value,email:document.getElementById('em').value,
+    country:document.getElementById('co').value,city:document.getElementById('ci').value,
+    dob:document.getElementById('dob').value,phone:document.getElementById('ph').value,
+    employer:document.getElementById('emp').value,prevNames:document.getElementById('prev').value,
+    linkedin:document.getElementById('linkedin').value,instagram:document.getElementById('instagram').value,
+    facebook:document.getElementById('facebook').value,twitter:document.getElementById('twitter').value,
+    tiktok:document.getElementById('tiktok').value,reddit:document.getElementById('reddit').value,
+    notes:document.getElementById('notes').value,
   };
-
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(data)) {
     if (value && ENTRY_IDS[key]) params.append(ENTRY_IDS[key], value);
   }
-
-const stripeUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(data.email);
-fetch(GOOGLE_FORM_URL, {
-  method: 'POST',
-  body: params,
-  mode: 'no-cors',
-  keepalive: true
-}).catch(function(){}).finally(function(){
-  window.location.href = stripeUrl;
+  const stripeUrl = STRIPE_PAYMENT_LINK + '?prefilled_email=' + encodeURIComponent(data.email);
+  fetch(GOOGLE_FORM_URL, {method:'POST',body:params,mode:'no-cors',keepalive:true})
+    .catch(function(){}).finally(function(){ window.location.href = stripeUrl; });
 });
-});
-</script>
-
-<script>
 function toggleMobileMenu(btn) {
   const menu = document.getElementById('mobile-menu');
   const isOpen = menu.classList.toggle('open');
@@ -1318,16 +1046,16 @@ function toggleMobileMenu(btn) {
 function closeMobileMenu() {
   const menu = document.getElementById('mobile-menu');
   const btn = document.querySelector('.nav-hamburger');
-  if (menu) { menu.classList.remove('open'); }
-  if (btn) { btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-label', 'Open navigation menu'); }
+  if (menu) menu.classList.remove('open');
+  if (btn) { btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-label','Open navigation menu'); }
 }
 document.addEventListener('click', function(e) {
   const menu = document.getElementById('mobile-menu');
   const btn = document.querySelector('.nav-hamburger');
   if (menu && menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
     menu.classList.remove('open');
-    btn.setAttribute('aria-expanded', 'false');
-    btn.setAttribute('aria-label', 'Open navigation menu');
+    btn.setAttribute('aria-expanded','false');
+    btn.setAttribute('aria-label','Open navigation menu');
   }
 });
 </script>
